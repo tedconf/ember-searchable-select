@@ -1,0 +1,36 @@
+<div
+  class="Searchable-select__label {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
+  {{action "toggleMenu"}}>
+  {{#if _selected}}
+    {{searchable-select-get _selected optionLabelKey}}
+  {{else}}
+    {{prompt}}
+  {{/if}}
+</div>
+
+{{#if _isShowingMenu}}
+  <div class="Searchable-select__menu">
+    <div class="Searchable-select__search">
+      {{input
+        class="Searchable-select__input"
+        type="text"
+        placeholder=searchPrompt
+        key-up="updateSearch"}}
+    </div>
+
+    <ul class="Searchable-select__options-list">
+      {{#each filteredContent key="@index" as |option|}}
+        {{!-- todo: add selected class to this
+        maybe split item into child component?--}}
+        <li
+          class="Searchable-select__option"
+          {{action "selectItem" option}}>
+          {{#if (searchable-select-is-equal option _selected)}}
+            <span class="Searchable-select__option-indicator Searchable-select__option-indicator--selected">&#10003;</span>
+          {{/if}}
+          {{searchable-select-get option optionLabelKey}}
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+{{/if}}

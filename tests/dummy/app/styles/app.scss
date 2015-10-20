@@ -1,0 +1,9 @@
+@import 'bootstrap';
+@import 'ember-ted-docs/styles';
+
+@import 'Searchable-select';
+
+.Options-table table {
+ @extend .table;
+ @extend .table-bordered;
+}

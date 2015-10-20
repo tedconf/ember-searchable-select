@@ -1,0 +1,49 @@
+{{ted-page-header
+  subheading='Ember'
+  slim-heading='Searchable '
+  strong-heading='Select'
+  byline='A select-like menu with searching and filtering capabilities'}}
+
+<div class="container">
+  {{#ember-markdown-section}}
+  ## Installation
+
+  ```
+  ember install ember-searchable-select
+  ```
+  <br>
+
+  ## Examples
+  {{/ember-markdown-section}}
+
+  {{!searchable-select
+    content=TEDevents
+    sortBy="title"}}
+
+<br>
+  {{searchable-select
+    content=TEDevents
+    limitSearchToWordBoundary=false
+    sortBy="title"}}
+
+  <div class="Options-table">
+    {{#ember-markdown-section}}
+    ## Configurable options
+
+    Option | Description | Type | Default value
+    --- | --- | ---
+    content | array of items to populate the list | Ember.A() | null
+    optionLabelKey | the item property to use as the visible label in the menu | string | 'title'
+    prompt | prompt text for the main input | string | 'Select an option'
+    searchPrompt | prompt text for the search input | string | 'Type to search'
+    allowClear |
+    limitSearchToWordBoundary | when set to true, search will only match the beginning of words | boolean | true
+    sortBy | provide an options item key to sort the list by | string | null
+    on-change | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code> The search text is sent as an argument. | Ember action | Ember.K
+    on-search | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code> The search text is sent as an argument. | Ember action | Ember.K
+
+    {{/ember-markdown-section}}
+  </div>
+
+</div>
+
