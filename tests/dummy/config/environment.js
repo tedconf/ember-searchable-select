@@ -5,13 +5,18 @@ module.exports = function(environment) {
     modulePrefix: 'dummy',
     podModulePrefix: 'dummy/pods',
     environment: environment,
-    baseURL: '/',
+    baseURL: '/ember-searchable-select',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. 'with-controller': true
       }
+    },
+
+    contentSecurityPolicy: {
+      'style-src': "'self' 'unsafe-inline'",
+      'img-src': "'self' data:",
     },
 
     APP: {
