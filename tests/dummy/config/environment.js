@@ -5,7 +5,6 @@ module.exports = function(environment) {
     modulePrefix: 'dummy',
     podModulePrefix: 'dummy/pods',
     environment: environment,
-    baseURL: '/ember-searchable-select',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -46,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.baseURL: '/ember-searchable-select',
   }
 
   return ENV;
