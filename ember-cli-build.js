@@ -7,6 +7,12 @@ module.exports = function(defaults) {
     'ember-cli-bootstrap-sassy': {
       'js': false
     },
+
+    //TODO: put minification back in for prod
+    // uglify throws a call stack size error right now
+    minifyJS: {
+      enabled: false
+    }
   });
 
   /*
