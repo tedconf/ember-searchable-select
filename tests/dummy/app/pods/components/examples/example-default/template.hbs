@@ -1,0 +1,23 @@
+<h3>Standard usage</h3>
+<p>Searchable select is data-down, actions up by default. This means there is no automatic two-way binding and you will need to update the selected value elsewhere in your app by using the <code>on-change</code> action. The selected object gets passed to your on-change action as an argument.</p>
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="default.hbs"}}
+
+    {{!-- TODO: get this js snippet working --}}
+    {{code-snippet name="examples/example-default.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET default --}}
+  {{searchable-select
+    content=TEDevents
+    sortBy="title"
+    on-change=(action "update")}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>

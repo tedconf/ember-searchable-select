@@ -1,0 +1,19 @@
+<h3>Limit search to word boundary</h3>
+
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="word-boundary.hbs"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET word-boundary --}}
+  {{searchable-select
+    content=TEDevents
+    sortBy="title"
+    on-change=(action "update")
+    limitSearchToWordBoundary=true}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+  </div>
+</div>

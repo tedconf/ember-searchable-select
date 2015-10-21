@@ -1,0 +1,22 @@
+<h3>Pass in an inital selection</h3>
+<p>You can set an initial selection by passing in one of the objects from the content array. This value will *not* be two-way bound and therefore, not mutated by the select component. It's up to you to sync up data outside the select by responding to the on-change action.</p>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="default.hbs"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET default --}}
+
+  {{searchable-select
+    content=TEDevents
+    sortBy="title"
+    selected=initialSelection
+    on-change=(action "update")}}
+
+  <p>Initial selection: {{initialSelection.title}}</p>
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>

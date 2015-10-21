@@ -1,0 +1,28 @@
+<h3>Custom filters or AJAX populating content</h3>
+<p>You can capture the search text outside the select by setting an <code>on-search</code> action. This allows you to do things like populate the content array via AJAX, or use a custom filter on your data set (eg. that searched on additional properties). Note that passing in an action implies you're handling filtering on your own and will disable the addon's internal filter.</p>
+
+<p>eg. Try typing 'NYC' in the search below.</p>
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="default.hbs"}}
+
+    {{!-- TODO: get this js snippet working --}}
+    {{code-snippet name="examples/ajax-search.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET default --}}
+  <p>Query text: {{queryText}}</p>
+
+  {{searchable-select
+    content=filteredTEDevents
+    sortBy="title"
+    on-change=(action "updateSelection")
+    on-search=(action "updateSearch")}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>

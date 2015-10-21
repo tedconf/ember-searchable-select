@@ -7,3 +7,13 @@
  @extend .table;
  @extend .table-bordered;
 }
+
+.Example {
+  border-bottom: solid 1px #dedede;
+  padding-bottom: 2em;
+  margin-bottom: 2em;
+
+  .Searchable-select {
+    margin-bottom: 20px;
+  }
+}

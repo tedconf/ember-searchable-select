@@ -10,12 +10,13 @@
 
 {{#if _isShowingMenu}}
   <div class="Searchable-select__menu">
-    <div class="Searchable-select__search">
+    <div class="Searchable-select__search" {{action "noop" bubbles=false}}>
       {{input
         class="Searchable-select__input"
         type="text"
         placeholder=searchPrompt
-        key-up="updateSearch"}}
+        key-up="updateSearch"
+        bubbles=false}}
     </div>
 
     <ul class="Searchable-select__options-list">

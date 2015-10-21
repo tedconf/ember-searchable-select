@@ -1,0 +1,27 @@
+{{ted-page-header
+  subheading='Ember'
+  slim-heading='Searchable '
+  strong-heading='Select'
+  byline='A select-like menu with searching and filtering capabilities'}}
+
+<div class="container">
+  {{#ember-markdown-section}}
+    ## Installation
+
+    ```
+    ember install ember-searchable-select
+    ```
+    <br>
+
+    ## Examples
+  {{/ember-markdown-section}}
+
+  {{examples/example-default TEDevents=TEDevents}}
+  {{examples/initial-selection TEDevents=TEDevents}}
+  {{examples/word-boundary TEDevents=TEDevents}}
+  {{examples/ajax-search TEDevents=TEDevents}}
+
+  {{options-table}}
+
+</div>
+
