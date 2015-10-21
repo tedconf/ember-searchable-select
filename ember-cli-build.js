@@ -3,7 +3,10 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
   var app = new EmberApp(defaults, {
-    snippetSearchPaths: ['app', 'tests/dummy']
+    snippetSearchPaths: ['app', 'tests/dummy'],
+    'ember-cli-bootstrap-sassy': {
+      'js': false
+    },
   });
 
   /*
