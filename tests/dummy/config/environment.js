@@ -45,7 +45,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.baseURL: '/ember-searchable-select',
+    ENV.baseURL = '/ember-searchable-select';
   }
 
   return ENV;
