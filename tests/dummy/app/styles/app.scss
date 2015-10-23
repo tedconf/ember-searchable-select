@@ -1,7 +1,7 @@
 @import 'bootstrap';
 @import 'ember-ted-docs/styles';
 
-@import 'Searchable-select';
+@import "ember-searchable-select/style";
 
 .Options-table table {
  @extend .table;

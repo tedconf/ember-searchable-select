@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+// BEGIN-SNIPPET ajax-search
 export default Ember.Component.extend({
   classNames: 'Example',
   TEDevents: null,
@@ -26,3 +27,5 @@ export default Ember.Component.extend({
     }
   }
 });
+
+// END-SNIPPET

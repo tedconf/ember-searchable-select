@@ -1,5 +1,6 @@
 import Ember from 'ember';
 
+// BEGIN-SNIPPET example-default
 export default Ember.Component.extend({
   classNames: 'Example',
   setBySearchable: null,
@@ -9,3 +10,4 @@ export default Ember.Component.extend({
     }
   }
 });
+// END-SNIPPET

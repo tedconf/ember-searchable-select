@@ -1,11 +1,21 @@
 # Ember-searchable-select
 
 This README outlines the details of collaborating on this Ember addon.
+
 ## Installation
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+To get started, install this addon,  [ember-cli-sass](https://github.com/aexmachina/ember-cli-sass), and include the ember-searchable-select styles in your app.scss.
+
+```
+npm install --save-dev git+ssh://git@github.com/tedconf/ember-searchable-select.git
+ember install ember-cli-sass
+ ```
+
+#### app.scss
+
+```
+@import "ember-searchable-select/style";
+```
 
 ## Running the demo app
 

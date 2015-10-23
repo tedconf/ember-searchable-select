@@ -1,4 +1,5 @@
-<div
+<a
+  href="#"
   class="Searchable-select__label {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
   {{action "toggleMenu"}}>
   {{#if _selected}}
@@ -6,7 +7,7 @@
   {{else}}
     {{prompt}}
   {{/if}}
-</div>
+</a>
 
 {{#if _isShowingMenu}}
   <div class="Searchable-select__menu">
