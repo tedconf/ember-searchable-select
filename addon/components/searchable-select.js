@@ -101,6 +101,7 @@ export default Ember.Component.extend({
     hideMenu(){
       this.set('_isShowingMenu', false);
       this.unbindOutsideClicks();
+      this.set('_searchText', '');
     },
     noop(){
       //need an action to able to attach bubbles:false to an elem
@@ -112,18 +113,16 @@ export default Ember.Component.extend({
 
 
 /* FEATURES::
+  - MULTIPLE
+  - ALLOW CREATION OF NEW ITEMS!
   - clear option
+  - no matching results message?
+  - allow user to pass in isLoading
+  - make list item over-writable component (label only, outer classes etc. get auto added)
+  - pagination??
   - ability to use keyboard controls as you would a native select
     * esc key to close
     * arrows up/down through options
-  - configurable search regex or at flag for search on whole string?
-  - multi select
-  - ajax populate list (action might be sufficient)
-  - pass in initial selection
   - optional two-way binding
-  - no matching results message
-  - set up gh-pages for docs
   - highlight matched text
-  - make list item over-writable component (label only, outer classes etc. get auto added)
-  - allow user to pass in isLoading
 */
