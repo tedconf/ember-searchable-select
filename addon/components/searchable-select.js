@@ -116,6 +116,7 @@ export default Ember.Component.extend({
   - MULTIPLE
   - ALLOW CREATION OF NEW ITEMS!
   - clear option
+  - allow disabled
   - no matching results message?
   - allow user to pass in isLoading
   - make list item over-writable component (label only, outer classes etc. get auto added)

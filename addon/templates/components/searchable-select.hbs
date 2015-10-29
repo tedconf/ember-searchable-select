@@ -25,12 +25,14 @@
         {{!-- todo: add selected class to this
         maybe split item into child component?--}}
         <li
-          class="Searchable-select__option"
+          class="Searchable-select__option {{if (searchable-select-is-equal option _selected) 'Searchable-select__option--selected'}}"
           {{action "selectItem" option}}>
           {{#if (searchable-select-is-equal option _selected)}}
             <span class="Searchable-select__option-indicator Searchable-select__option-indicator--selected">&#10003;</span>
           {{/if}}
-          {{searchable-select-get option optionLabelKey}}
+          <span class="Searchable-select__option-label {{if (searchable-select-is-equal option _selected) 'Searchable-select__option-label--selected'}}">
+            {{searchable-select-get option optionLabelKey}}
+          </span>
         </li>
       {{/each}}
     </ul>

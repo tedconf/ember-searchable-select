@@ -5,6 +5,6 @@ module('Unit | Helper | searchable select get');
 
 // Replace this with your real tests.
 test('it works', function(assert) {
-  var result = searchableSelectGet(42);
-  assert.ok(result);
+  var result = searchableSelectGet([{title: 'test'}, 'title']);
+  assert.equal(result, 'test');
 });
