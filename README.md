@@ -1,13 +1,11 @@
 # Ember-searchable-select
 
-This README outlines the details of collaborating on this Ember addon.
-
 ## Installation
 
 To get started, install this addon,  [ember-cli-sass](https://github.com/aexmachina/ember-cli-sass), and include the ember-searchable-select styles in your app.scss.
 
 ```
-npm install --save-dev git+ssh://git@github.com/tedconf/ember-searchable-select.git
+ember install ember-searchable-select
 ember install ember-cli-sass
  ```
 
@@ -17,21 +15,27 @@ ember install ember-cli-sass
 @import "ember-searchable-select/style";
 ```
 
-## Running the demo app
+## Documentation & Demos
+
+There are many ways to customize and configure ember-searchable-select. Full documentation and demos can be found at [http://tedconf.github.io/ember-searchable-select/](http://tedconf.github.io/ember-searchable-select/).
+
+## Collaborating
+
+### Running the demo app
 
 * `ember server`
 * Visit your app at http://localhost:4200.
 
-## Running Tests
+### Running Tests
 
 * `ember test`
 * `ember test --server`
 
-## Building
+### Building
 
 * `ember build`
 
-## Deploying the documentation demo app 
+### Deploying the documentation demo app 
 ```
 git checkout master
 ember github-pages:commit --message "Update gh-pages"

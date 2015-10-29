@@ -117,20 +117,7 @@ export default Ember.Component.extend({
 });
 
 
-
 /* FEATURES::
-  - MULTIPLE
-  - ALLOW CREATION OF NEW ITEMS!
-  - clear option
-  - allow disabled
-  - no matching results message?
-  - allow user to pass in isLoading
-  - make list item over-writable component (label only, outer classes etc. get auto added)
   - pagination??
-  - ability to use keyboard controls as you would a native select
-    * esc key to close
-    * arrows up/down through options
-    * down arrow opens menu when focussed
   - optional two-way binding
-  - highlight matched text
 */

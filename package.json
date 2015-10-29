@@ -1,7 +1,7 @@
 {
   "name": "ember-searchable-select",
   "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "Data-down, actions up select-like menu with searching and filtering capabilities.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -11,7 +11,7 @@
     "start": "ember server",
     "test": "ember try:testall"
   },
-  "repository": "",
+  "repository": "https://github.com/tedconf/ember-searchable-select",
   "engines": {
     "node": ">= 0.10.0"
   },
@@ -43,7 +43,10 @@
     "ember-try": "0.0.6"
   },
   "keywords": [
-    "ember-addon"
+    "ember-addon",
+    "select",
+    "menu",
+    "search"
   ],
   "dependencies": {
     "ember-cli-babel": "^5.1.3",
