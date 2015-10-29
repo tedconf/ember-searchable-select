@@ -12,10 +12,14 @@
     "test": "ember try:testall"
   },
   "repository": "https://github.com/tedconf/ember-searchable-select",
+  "bugs": {
+    "url": "https://github.com/tedconf/ember-searchable-select/issues"
+  },
+  "homepage": "http://tedconf.github.io/ember-searchable-select/",
   "engines": {
     "node": ">= 0.10.0"
   },
-  "author": "",
+  "author": "TEDconf and contributors",
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.1.2",
@@ -53,6 +57,7 @@
     "ember-cli-htmlbars": "^1.0.1"
   },
   "ember-addon": {
-    "configPath": "tests/dummy/config"
+    "configPath": "tests/dummy/config",
+    "demoURL": "https://tedconf.github.io/ember-searchable-select/"
   }
 }
