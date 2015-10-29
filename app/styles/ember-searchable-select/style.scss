@@ -1,16 +1,22 @@
+$searchable-select-clear-bg: #33CBFA;
+$searchable-select-clear-color: #fff;
+$searchable-select-item-bg--selected: #eef6fa;
+$searchable-select-item-bg--hover: #f6f6f6;
+
 .Searchable-select {
   position: relative;
+  font-size: 14px;
 
   li {
     list-style: none;
     line-height: 1.2;
-    padding: 8px 30px;
+    padding: 0.6em 2.15em;
   }
 
   &__label {
     display: block;
     width: 100%;
-    padding: 6px 12px;
+    padding: 0.58em 1em;
     border: 1px solid #ccc;
     text-decoration: none;
     color: inherit;
@@ -28,20 +34,50 @@
       text-decoration: none;
       color: inherit;
     }
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    }
   }
 
   &__search {
-    padding: 10px;
+    padding: 0.7em;
     background: #f6f6f6;
   }
 
   &__input {
     display: block;
     width: 100%;
-    padding: 6px 12px;
+    padding: 0.6em 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    &:focus {
+      border-color: #66afe9;
+      outline: 0;
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+    }
+  }
+
+  &__clear {
+    position: relative;
+    line-height: 1;
+    padding: 0.7em 2.15em;
+    cursor: pointer;
+    background: $searchable-select-clear-bg;
+    color: $searchable-select-clear-color;
+  }
+
+  &__clear-icon {
+    position: absolute;
+    left: 0.6em;
+    top: 50%;
+    transform: translateY(-0.6em);
+    font-size: 1.3em;
+    font-weight: bold;
   }
 
   &__menu {
@@ -68,9 +104,8 @@
     cursor: pointer;
     position: relative;
 
-    // &--current{background: #EEF6FA;}
-    // &:hover {background: #f6f6f6;}
-    &:hover {background: #eef6fa;}
+    &--selected{background: $searchable-select-item-bg--selected;}
+    &:hover {background: $searchable-select-item-bg--hover;}
 
     &--disabled {
       color: #8C8C8C;
@@ -80,8 +115,9 @@
 
   &__option-indicator {
     position: absolute;
-    left: 10px;
-    top: 8px;
+    left: 0.6em;
+    top: 50%;
+    transform: translateY(-0.6em);
     color: #8c8c8c;
   }
 }

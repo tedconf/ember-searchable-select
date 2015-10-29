@@ -10,6 +10,8 @@
     searchPrompt | prompt text for the search input | string | 'Type to search'
     limitSearchToWordBoundary | when set to true, search will only match the beginning of words | boolean | true
     sortBy | provide an options item key to sort the list by | boolean | false
+    isClearable | when true, a clear button is available to clear the selection | boolean | true
+    clearLabel | prompt to show beside the clear button for a clearable menu | string | 'Clear selection'
     on-change | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code> The search text is sent as an argument. | Ember action | Ember.K
     on-search | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. Note that internal filter is automatically disabled when an on-search action is provided. | Ember action | Ember.K
 

@@ -20,10 +20,14 @@
         bubbles=false}}
     </div>
 
+    {{#if _isShowingClear}}
+      <div class="Searchable-select__clear" {{action "clear" bubbles=false}}>
+        <span class="Searchable-select__clear-icon">&times;</span>
+        {{clearLabel}}
+      </div>
+    {{/if}}
     <ul class="Searchable-select__options-list">
       {{#each filteredContent key="@index" as |option|}}
-        {{!-- todo: add selected class to this
-        maybe split item into child component?--}}
         <li
           class="Searchable-select__option {{if (searchable-select-is-equal option _selected) 'Searchable-select__option--selected'}}"
           {{action "selectItem" option}}>

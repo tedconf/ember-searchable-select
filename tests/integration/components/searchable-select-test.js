@@ -64,15 +64,16 @@ test('can configure the label prompt with custom text', function(assert) {
 });
 
 test('clicking the label opens a search input and list of all options', function(assert) {
-  assert.expect(6);
+  assert.expect(7);
 
   this.set('content', TEDevents);
   this.render(hbs`{{searchable-select content=content}}`);
   var $component = this.$();
 
   $component.find('.Searchable-select__label').click();
-  var $searchInput = $component.find('.Searchable-select__input');
-  var $options = $component.find('.Searchable-select__option');
+  var $searchInput = $component.find('.Searchable-select__input'),
+      $options = $component.find('.Searchable-select__option'),
+      $clear = $component.find('.Searchable-select__clear');
 
   assert.equal($component.find('.Searchable-select__menu').length, 1);
   assert.equal($searchInput.length, 1);
@@ -81,11 +82,15 @@ test('clicking the label opens a search input and list of all options', function
   assert.equal($searchInput.attr('placeholder').trim(), 'Type to search',
     'the search input should have a default prompt message');
 
+  assert.equal($clear.length, 0,
+    'there should not be a clear button when nothing is selected yet');
+
   assert.equal($options.eq(0).text().trim(), 'TED2015',
     'item labels should default to "title" value');
 
   assert.equal($options.is('.Searchable-select__option--selected'), false,
     'no options should be selected by default');
+
 });
 
 test('can change the search prompt to a new string', function(assert) {
@@ -112,7 +117,7 @@ test('can specify an alternate path for option label', function(assert) {
 });
 
 test('can pass in an initial selection', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
   this.set('content', TEDevents);
   this.set('selected', TEDevents.findBy('id', 3));
 
@@ -121,6 +126,9 @@ test('can pass in an initial selection', function(assert) {
 
   var $selected = this.$('.Searchable-select__option-label--selected');
   assert.equal($selected.text().trim(), 'TED2014');
+
+  assert.equal(this.$('.Searchable-select__clear').length, 1,
+    'should see a clear button when there is a selection');
 });
 
 test('can sort the options by a provided key', function(assert) {
@@ -176,6 +184,23 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
 });
 
+//TODO: get this test working properly, works in demo app,
+// test('filtered list should reset after a selection is made', function(assert) {
+//   assert.expect(1);
+
+//   this.set('content', TEDevents);
+//   this.actions = {selectionChanged: function(){}};
+
+//   this.render(hbs`{{searchable-select content=content on-change=(action "selectionChanged")}}`);
+//   var $component = this.$();
+
+//   this.$('.Searchable-select__label').click();
+//   this.$('.Searchable-select__input').val('Global').keyup();
+//   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
+//   $component.find('.Searchable-select__label').click();
+//   assert.equal($component.find('.Searchable-select__option').length, 7);
+// });
+
 test('search text gets passed out with the on-search action', function(assert) {
   assert.expect(2);
   this.set('content', TEDevents);
@@ -192,6 +217,30 @@ test('search text gets passed out with the on-search action', function(assert) {
 
 });
 
+test('can clear the selection with a clear button', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', TEDevents.findBy('id', 3));
+
+  this.actions = { assertChanged: function(selection) {
+    assert.deepEqual(selection, null);
+  }};
+
+  this.render(hbs`{{searchable-select content=content selected=selected on-change=(action "assertChanged")}}`);
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__clear').click();
+});
+
+test('can disable clear functionality', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', TEDevents.findBy('id', 3));
+
+  this.render(hbs`{{searchable-select content=content selected=selected isClearable=false}}`);
+  this.$('.Searchable-select__label').click();
+
+  assert.equal(this.$('.Searchable-select__clear').length, 0);
+});
 
 
 // test('can specify a path for a disabled flag', function(assert) {
@@ -237,24 +286,4 @@ test('search text gets passed out with the on-search action', function(assert) {
 
 //   assert.equal(this.get('selection'), itemToSelect);
 
-// });
-
-// test('can force the select to reset after a change is made', function(assert) {
-//   assert.expect(1);
-//   this.set('content', TEDevents);
-
-//   this.render(hbs`{{searchable-select content=content resetOnChange=true}}`);
-
-//   this.$('select').val(1);
-//   this.$('select').trigger('change');
-
-//   assert.equal(this.$('.Searchable-select__prompt:selected').length, 1);
-// });
-
-// test('can add a custom class name to the select element', function(assert) {
-//   assert.expect(1);
-
-//   this.render(hbs`{{searchable-select content=content selectClassNames="my-select"}}`);
-
-//   assert.equal(this.$('select.my-select').length, 1);
 // });

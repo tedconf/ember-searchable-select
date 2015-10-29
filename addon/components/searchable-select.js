@@ -14,10 +14,13 @@ export default Ember.Component.extend({
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
   limitSearchToWordBoundary: false,
+  isClearable: true,
+  clearLabel: 'Clear',
   sortBy: null,
   _searchText: '',
   _isShowingMenu: false,
   _selected: Ember.computed.reads('selected'),
+  _isShowingClear: Ember.computed.and('isClearable', '_selected'),
 
   'on-change': Ember.K,
   'on-search': Ember.K,
@@ -80,7 +83,7 @@ export default Ember.Component.extend({
     selectItem(item){
       this.set('_selected', item);
       this['on-change'].call(this, item);
-      this.toggleProperty('_isShowingMenu');
+      this.send('hideMenu');
     },
     toggleMenu(){
       if (this.get('_isShowingMenu')){
@@ -103,6 +106,9 @@ export default Ember.Component.extend({
       this.unbindOutsideClicks();
       this.set('_searchText', '');
     },
+    clear(){
+      this.send('selectItem', null);
+    },
     noop(){
       //need an action to able to attach bubbles:false to an elem
     }
@@ -124,6 +130,7 @@ export default Ember.Component.extend({
   - ability to use keyboard controls as you would a native select
     * esc key to close
     * arrows up/down through options
+    * down arrow opens menu when focussed
   - optional two-way binding
   - highlight matched text
 */
