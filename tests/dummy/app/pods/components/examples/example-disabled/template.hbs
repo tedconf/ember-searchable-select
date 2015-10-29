@@ -1,0 +1,21 @@
+<h3>Disabled options</h3>
+<p>Just like a real select menu, you can disable menu items. Pass in a item key to use as a flag; when true the item will not be selectable. If you don't have an existing model key that evaluates to true/false, you can set up a computed property on the content model that returns a boolean value.</p>
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="disabled.hbs"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET disabled --}}
+  {{searchable-select
+    content=TEDevents
+    sortBy="title"
+    optionDisabledKey="isTEDxEvent"
+    on-change=(action "update")}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>

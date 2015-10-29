@@ -8,10 +8,11 @@ moduleForComponent('searchable-select', 'Integration | Component | searchable se
 
 var TEDevents = Ember.A([
   {
-   id: 1,
-   title: 'TED2015',
-   longTitle: 'TED2015: Truth and Dare',
-   keywords: ''
+    id: 1,
+    title: 'TED2015',
+    longTitle: 'TED2015: Truth and Dare',
+    keywords: '',
+    isTEDxEvent: false
   },
   {
     id: 2,
@@ -20,14 +21,16 @@ var TEDevents = Ember.A([
     isTEDxEvent: true
   },
   {
-   id: 3,
-   title: 'TED2014',
-   keywords: ''
+    id: 3,
+    title: 'TED2014',
+    keywords: '',
+    isTEDxEvent: false
   },
   {
     id: 4,
     title: 'TEDGlobal 2014',
-    keywords: ''
+    keywords: '',
+    isTEDxEvent: false
   },
   {
     id: 5,
@@ -38,12 +41,14 @@ var TEDevents = Ember.A([
   {
     id: 6,
     title: 'TEDGlobal 2013',
-    keywords: ''
+    keywords: '',
+    isTEDxEvent: false
   },
   {
     id: 7,
     title: 'TED2013',
-    keywords: ''
+    keywords: '',
+    isTEDxEvent: false
   }
 ]);
 
@@ -242,6 +247,20 @@ test('can disable clear functionality', function(assert) {
   assert.equal(this.$('.Searchable-select__clear').length, 0);
 });
 
+test('can flag items as disabled by providing a boolean key to check against', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.actions = { assertChanged: function(selection) {
+    //this action should not fire
+  }};
+
+  this.render(hbs`{{searchable-select content=content optionDisabledKey="isTEDxEvent" on-change=(action "assertChanged")}}`);
+  this.$('.Searchable-select__label').click();
+  var disabledOptions = this.$('.Searchable-select__option--disabled');
+  disabledOptions.eq(0).click();
+
+  assert.equal(disabledOptions.length, 2);
+});
 
 // test('can specify a path for a disabled flag', function(assert) {
 //   assert.expect(1);

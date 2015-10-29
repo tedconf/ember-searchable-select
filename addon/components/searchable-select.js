@@ -11,6 +11,7 @@ export default Ember.Component.extend({
   selected: null,
   // optionValueKey: 'id', //do i need this? or is id a suitable default for unique key?
   optionLabelKey: 'title',
+  optionDisabledKey: null,
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
   limitSearchToWordBoundary: false,
@@ -81,6 +82,10 @@ export default Ember.Component.extend({
       this['on-search'].call(this, text);
     },
     selectItem(item){
+      if (Ember.get(item, this.get('optionDisabledKey'))){
+        //item is disabled
+        return;
+      }
       this.set('_selected', item);
       this['on-change'].call(this, item);
       this.send('hideMenu');

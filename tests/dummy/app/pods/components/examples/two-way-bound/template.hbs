@@ -1,5 +1,8 @@
-<h3>Two-way bound</h3>
-<p>Although data-down, actions-up is the recommended usage, you can force a two-way binding with the [<code>mut</code> helper](http://emberjs.com/blog/2015/05/10/run-up-to-two-oh.html#toc_the-code-mut-code-helper). Pass in `(mut boundValue)` to the on-change action instead of a named action.</p>
+{{#ember-markdown-section}}
+### Two-way bound
+
+Although data-down, actions-up is the recommended usage, you can force a two-way binding with [Ember's `mut` helper](http://emberjs.com/blog/2015/05/10/run-up-to-two-oh.html#toc_the-code-mut-code-helper). Instead of passing in an action name to `on-change`, pass in something like `(mut boundValue)`.
+{{/ember-markdown-section}}
   <div class="row">
   <div class="col-md-6">
     {{code-snippet name="two-way.hbs"}}
