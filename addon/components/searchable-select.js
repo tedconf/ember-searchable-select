@@ -82,7 +82,7 @@ export default Ember.Component.extend({
       this['on-search'].call(this, text);
     },
     selectItem(item){
-      if (Ember.get(item, this.get('optionDisabledKey'))){
+      if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))){
         //item is disabled
         return;
       }

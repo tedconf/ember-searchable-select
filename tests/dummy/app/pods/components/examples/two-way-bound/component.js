@@ -5,5 +5,11 @@ export default Ember.Component.extend({
   TEDevents: null,
   selectedOption: Ember.computed('TEDevents', function() {
     return this.get('TEDevents').findBy('title', 'TED2015');
-  })
+  }),
+
+  actions: {
+    clearFromOutside(){
+      this.set('selectedOption', null);
+    }
+  }
 });
