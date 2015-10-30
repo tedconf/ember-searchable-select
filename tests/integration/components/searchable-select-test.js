@@ -250,7 +250,7 @@ test('can disable clear functionality', function(assert) {
 test('can flag items as disabled by providing a boolean key to check against', function(assert) {
   assert.expect(1);
   this.set('content', TEDevents);
-  this.actions = { assertChanged: function(selection) {
+  this.actions = { assertChanged: function() {
     //this action should not fire
   }};
 

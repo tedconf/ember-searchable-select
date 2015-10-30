@@ -9,8 +9,7 @@ export default Ember.Component.extend({
 
   content: null,
   selected: null,
-  // optionValueKey: 'id', //do i need this? or is id a suitable default for unique key?
-  optionLabelKey: 'title',
+    optionLabelKey: 'title',
   optionDisabledKey: null,
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
@@ -20,11 +19,22 @@ export default Ember.Component.extend({
   sortBy: null,
   _searchText: '',
   _isShowingMenu: false,
-  _selected: Ember.computed.reads('selected'),
   _isShowingClear: Ember.computed.and('isClearable', '_selected'),
 
   'on-change': Ember.K,
   'on-search': Ember.K,
+
+  // Make the passed in `selected` a one-way binding.
+  // `Ember.computed.oneWay` won't pick up on upstream
+  // changes after the prop gets set internally.
+  _selected: Ember.computed('selected', {
+    get: function() {
+      return this.get('selected');
+    },
+    set: function(key, value){
+      return value;
+    }
+  }),
 
   sortArray: Ember.computed('sortBy', function(){
     if (this.get('sortBy')){
