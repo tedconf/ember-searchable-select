@@ -247,6 +247,19 @@ test('search text gets passed out with the on-search action', function(assert) {
 
 });
 
+test('can toggle and customize a loading state', function(assert) {
+  assert.expect(2);
+  this.render(hbs`{{searchable-select
+    isLoading=true
+    loadingMessage="Loading..."}}`);
+
+  this.$('.Searchable-select__label').click();
+  assert.equal(this.$('.Searchable-select__loader').length, 1);
+  assert.equal(
+    this.$('.Searchable-select__loader-text').text().trim(),
+    'Loading...');
+});
+
 test('can clear the selection with a clear button', function(assert) {
   assert.expect(1);
   this.set('content', TEDevents);
