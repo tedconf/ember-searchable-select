@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-// BEGIN-SNIPPET ajax-search
+// BEGIN-SNIPPET ajax-loader
 export default Ember.Component.extend({
   classNames: 'Example',
   TEDevents: null,
@@ -22,8 +22,9 @@ export default Ember.Component.extend({
       }
     },
     searchForEvents(){
-      // If you have a slow AJAX response, you can pass in an `isLoading` flag
-      // to display a loader. Set to true while you're fetching results...
+      // If you have a slow AJAX response, you can pass
+      // in an `isLoading` flag to display a loader.
+      // Set to true while you're fetching results...
       this.set('isLoadingEvents', true);
 
       let regex = this.get('queryText') ?
@@ -38,7 +39,7 @@ export default Ember.Component.extend({
 
       // Here, we pretend have a slow response using .setTimeout().
       // With a real AJAX fetch this would happen in the callback or
-      //promise resolution.
+      // promise resolution.
       window.setTimeout(() => {
         this.set('filteredTEDevents', Ember.A(matches));
         this.set('isLoadingEvents', false);
