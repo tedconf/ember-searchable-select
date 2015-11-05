@@ -9,10 +9,11 @@ export default Ember.Component.extend({
 
   content: null,
   selected: null,
-    optionLabelKey: 'title',
+  optionLabelKey: 'title',
   optionDisabledKey: null,
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
+  noResultsMessage: 'No matching results',
   limitSearchToWordBoundary: false,
   isClearable: true,
   clearLabel: 'Clear',
@@ -20,6 +21,9 @@ export default Ember.Component.extend({
   _searchText: '',
   _isShowingMenu: false,
   _isShowingClear: Ember.computed.and('isClearable', '_selected'),
+  _hasNoResults: Ember.computed.empty('filteredContent'),
+  _hasResults: Ember.computed.not('_hasNoResults'),
+  _isShowingNoResultsMessage: Ember.computed.and('_searchText', '_hasNoResults'),
 
   'on-change': Ember.K,
   'on-search': Ember.K,
@@ -117,7 +121,7 @@ export default Ember.Component.extend({
 
       Ember.run.next(this, function() {
         this.bindOutsideClicks();
-      })
+      });
     },
     hideMenu(){
       this.set('_isShowingMenu', false);

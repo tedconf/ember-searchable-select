@@ -1,6 +1,6 @@
-<a
-  href="#"
-  class="Searchable-select__label {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
+<a href="#"
+  class="Searchable-select__label
+    {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
   {{action "toggleMenu"}}>
   {{#if _selected}}
     {{searchable-select-get _selected optionLabelKey}}
@@ -26,21 +26,38 @@
         {{clearLabel}}
       </div>
     {{/if}}
+
+    {{#if _isShowingNoResultsMessage}}
+    <div class="Searchable-select__info">
+      {{noResultsMessage}}
+    </div>
+    {{/if}}
+
+    {{#if _hasResults}}
     <ul class="Searchable-select__options-list">
       {{#each filteredContent key="@index" as |option|}}
         <li
           class="Searchable-select__option
-          {{if (searchable-select-is-equal option _selected) 'Searchable-select__option--selected'}}
-          {{if (searchable-select-get option optionDisabledKey) 'Searchable-select__option--disabled'}}"
+          {{if (searchable-select-is-equal option _selected)
+            'Searchable-select__option--selected'}}
+          {{if (searchable-select-get option optionDisabledKey)
+            'Searchable-select__option--disabled'}}"
           {{action "selectItem" option bubbles=false}}>
           {{#if (searchable-select-is-equal option _selected)}}
-            <span class="Searchable-select__option-indicator Searchable-select__option-indicator--selected">&#10003;</span>
+            <span class="Searchable-select__option-indicator
+              Searchable-select__option-indicator--selected">
+              &#10003;
+            </span>
           {{/if}}
-          <span class="Searchable-select__option-label {{if (searchable-select-is-equal option _selected) 'Searchable-select__option-label--selected'}}">
+          <span class="Searchable-select__option-label
+            {{if (searchable-select-is-equal option _selected)
+              'Searchable-select__option-label--selected'}}">
             {{searchable-select-get option optionLabelKey}}
           </span>
         </li>
       {{/each}}
     </ul>
+    {{/if}}
+
   </div>
 {{/if}}

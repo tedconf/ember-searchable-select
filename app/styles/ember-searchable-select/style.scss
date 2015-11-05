@@ -2,6 +2,9 @@ $searchable-select-clear-bg: #33CBFA;
 $searchable-select-clear-color: #fff;
 $searchable-select-item-bg--selected: #eef6fa;
 $searchable-select-item-bg--hover: #f6f6f6;
+$searchable-select-no-results-color: #9a9a9a;
+$searchable-select-spacer-horizontal--has-icon: 2.15em;
+$searchable-select-spacer-horizontal: 1em;
 
 .Searchable-select {
   position: relative;
@@ -10,13 +13,13 @@ $searchable-select-item-bg--hover: #f6f6f6;
   li {
     list-style: none;
     line-height: 1.2;
-    padding: 0.6em 2.15em;
+    padding: 0.6em $searchable-select-spacer-horizontal--has-icon;
   }
 
   &__label {
     display: block;
     width: 100%;
-    padding: 0.58em 1em;
+    padding: 0.58em $searchable-select-spacer-horizontal;
     border: 1px solid #ccc;
     text-decoration: none;
     color: inherit;
@@ -65,7 +68,7 @@ $searchable-select-item-bg--hover: #f6f6f6;
   &__clear {
     position: relative;
     line-height: 1;
-    padding: 0.7em 2.15em;
+    padding: 0.75em $searchable-select-spacer-horizontal--has-icon;
     cursor: pointer;
     background: $searchable-select-clear-bg;
     color: $searchable-select-clear-color;
@@ -78,6 +81,11 @@ $searchable-select-item-bg--hover: #f6f6f6;
     transform: translateY(-0.6em);
     font-size: 1.3em;
     font-weight: bold;
+  }
+
+  &__info {
+    padding: 0.8em $searchable-select-spacer-horizontal;
+    color: $searchable-select-no-results-color;
   }
 
   &__menu {
