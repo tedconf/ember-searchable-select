@@ -110,11 +110,14 @@ export default Ember.Component.extend({
     showMenu(){
       this.set('_isShowingMenu', true);
 
-      Ember.run.next(this, function() {
-        //focus search input
+      Ember.run.scheduleOnce('afterRender', this, function() {
+        // focus search input
         this.$('.Searchable-select__input').focus();
-        this.bindOutsideClicks();
       });
+
+      Ember.run.next(this, function() {
+        this.bindOutsideClicks();
+      })
     },
     hideMenu(){
       this.set('_isShowingMenu', false);
