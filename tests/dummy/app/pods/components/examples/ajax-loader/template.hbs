@@ -1,0 +1,29 @@
+<h3>Loading state</h3>
+<p>You may want to trigger a loading state on the menu when using your own <code>on-search</code> action with an AJAX fetch. To do this, pass in your own boolean `isLoading` property. When set to true, a loader animation will display. It will disappear when false. You can customize the loading message with the <code>loadingMessage</code> property.</p>
+<p>Note that with a slow AJAX search you might want to debounce your requests to fire less than every <code>on-search</code>event.</p>
+
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="default.hbs"}}
+
+    {{!-- TODO: get this js snippet working --}}
+    {{code-snippet name="ajax-search.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET default --}}
+  <p>Query text: {{queryText}}</p>
+
+  {{searchable-select
+    content=filteredTEDevents
+    sortBy="title"
+    on-change=(action "updateSelection")
+    on-search=(action "updateSearch")
+    isLoading=isLoadingEvents}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>

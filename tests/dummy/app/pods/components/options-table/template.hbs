@@ -16,5 +16,7 @@
     clearLabel | prompt to show beside the clear button for a clearable menu | string | 'Clear selection'
     on-change | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code> The search text is sent as an argument. | Ember action | Ember.K
     on-search | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. Note that internal filter is automatically disabled when an on-search action is provided. | Ember action | Ember.K
+    isLoading | pass in your own boolean flag to toggle visibility of a loading animation | boolean | false
+    loadingMessage | customize the text displayed beside the loading animation | string | 'Searching...'
 
     {{/ember-markdown-section}}

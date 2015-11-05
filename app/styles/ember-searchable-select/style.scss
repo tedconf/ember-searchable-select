@@ -88,6 +88,15 @@ $searchable-select-spacer-horizontal: 1em;
     color: $searchable-select-no-results-color;
   }
 
+  &__loader {
+    vertical-align: middle;
+    width: 0.857em;
+  }
+
+  &__loader-text {
+    vertical-align: middle;
+  }
+
   &__menu {
     position: absolute;
     top: 100%;
