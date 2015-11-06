@@ -147,5 +147,4 @@ export default Ember.Component.extend({
 
 /* FEATURES::
   - pagination??
-  - optional two-way binding
 */

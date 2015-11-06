@@ -164,7 +164,7 @@ test('can sort the options by a provided key', function(assert) {
 });
 
 test('can type to refine the list of options', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   this.set('content', TEDevents);
 
   this.render(hbs`{{searchable-select content=content}}`);
@@ -172,6 +172,10 @@ test('can type to refine the list of options', function(assert) {
   this.$('.Searchable-select__input').val('2013').keyup();
 
   assert.equal(this.$('.Searchable-select__option').length, 2);
+  assert.equal(
+    this.$('.Searchable-select__matched-text').eq(0).text().trim(),
+    '2013',
+    'search string is highlighted');
 
   //if there are no results matching, i see a message
   this.$('.Searchable-select__input').val('zzz').keyup();

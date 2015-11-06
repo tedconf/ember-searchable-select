@@ -87,7 +87,10 @@
           <span class="Searchable-select__option-label
             {{if (searchable-select-is-equal option _selected)
               'Searchable-select__option-label--selected'}}">
-            {{searchable-select-get option optionLabelKey}}
+            {{searchable-select-highlight-match
+              (searchable-select-get option optionLabelKey)
+              _searchText
+            }}
           </span>
         </li>
       {{/each}}

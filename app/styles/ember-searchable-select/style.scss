@@ -137,4 +137,8 @@ $searchable-select-spacer-horizontal: 1em;
     transform: translateY(-0.6em);
     color: #8c8c8c;
   }
+
+  &__matched-text {
+    font-weight: bold;
+  }
 }
