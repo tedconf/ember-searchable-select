@@ -203,7 +203,7 @@ test('selection gets passed out with the on-change action', function(assert) {
 
   var itemToSelect = TEDevents.findBy('title', 'TEDGlobal 2014');
 
-  this.actions = { assertChanged: function(selection) {
+  this.actions = { assertChanged(selection) {
     assert.deepEqual(selection, itemToSelect);
   }};
 
@@ -264,12 +264,201 @@ test('can toggle and customize a loading state', function(assert) {
     'Loading...');
 });
 
+test('will show create button', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    isCreatable=true}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('global').keyup();
+  assert.equal(this.$('.Searchable-select__create').length, 1);
+});
+
+test('selection gets passed out with the on-create action', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.actions = { assertCreated(selection) {
+    assert.deepEqual(selection, 'global');
+  }};
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    isCreatable=true
+    on-create=(action "assertCreated")}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('global').keyup();
+  this.$('.Searchable-select__create').click();
+});
+
+test('will hide the create button when search text matches exactly', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    isCreatable=true}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('TED2015').keyup();
+  assert.equal(this.$('.Searchable-select__create').length, 0);
+});
+
+test('will hide the create button even though search text doesn\'t match case', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    createMatchCaseInsensitive=true
+    isCreatable=true}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('ted2015').keyup();
+  assert.equal(this.$('.Searchable-select__create').length, 0);
+});
+
+test('will show the create button when search text doesn\'t match case', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    createMatchCaseInsensitive=false
+    isCreatable=true}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('ted2015').keyup();
+  assert.equal(this.$('.Searchable-select__create').length, 1);
+});
+
+test('will select item returned by the on-create action', function(assert) {
+  assert.expect(2);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  let createdItem;
+
+  this.actions = { assertCreated(title) {
+    assert.ok(true);
+    const id = TEDevents.length + 1;
+    createdItem = { id, title };
+    return createdItem;
+  }};
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    isCreatable=true
+    on-create=(action "assertCreated")}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('global').keyup();
+  this.$('.Searchable-select__create').click();
+  assert.equal($('.Searchable-select__label').text().trim(), 'global');
+});
+
+test('will select item set by the on-create action', function(assert) {
+  assert.expect(2);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  let createdItem;
+
+  this.actions = { assertCreated(title) {
+    assert.ok(true);
+    const id = TEDevents.length + 1;
+    createdItem = { id, title };
+    this.set('selected', createdItem);
+  }};
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    isCreatable=true
+    on-create=(action "assertCreated")}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('global').keyup();
+  this.$('.Searchable-select__create').click();
+  assert.equal($('.Searchable-select__label').text().trim(), 'global');
+});
+
+// TODO: sometimes fails with Uncaught Error: Assertion Failed: Internal error: trackedArray is null or undefined
+// test('will add created item to the search results', function(assert) {
+//   assert.expect(2);
+
+//   const done = assert.async();
+
+//   this.set('content', TEDevents);
+//   this.set('selected', null);
+
+//   let createdItem;
+//   let doneCreating;
+//   this.actions = { assertCreated(title) {
+//     const content = this.get('content');
+//     const id = content.get('length') + 1;
+//     createdItem = { id, title };
+//     content.addObject(createdItem);
+//     assert.ok(true);
+//     doneCreating();
+//   }};
+
+//   this.render(hbs`{{searchable-select
+//     content=content
+//     selected=selected
+//     isCreatable=true
+//     on-create=(action "assertCreated")}}`);
+
+//   this.$('.Searchable-select__label').click();
+//   this.$('.Searchable-select__input').val('unique').keyup();
+
+//   new Ember.Test.promise(resolve => {
+//     doneCreating = resolve;
+//     this.$('.Searchable-select__create').click();
+//   }).then(() => {
+//     assert.equal($('.Searchable-select__option:contains(unique)').length, 1);
+//     TEDevents.removeObject(createdItem);
+//     done();
+//   });
+// });
+
+test('can set create label', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+  this.set('selected', null);
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=selected
+    createLabel="Bingo"
+    isCreatable=true}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__input').val('global').keyup();
+  assert.equal(this.$('.Searchable-select__create-label').text(), 'Bingo');
+});
+
 test('can clear the selection with a clear button', function(assert) {
   assert.expect(1);
   this.set('content', TEDevents);
   this.set('selected', TEDevents.findBy('id', 3));
 
-  this.actions = { assertChanged: function(selection) {
+  this.actions = { assertChanged(selection) {
     assert.deepEqual(selection, null);
   }};
 
@@ -314,7 +503,7 @@ test('can flag items as disabled by providing a boolean key to check against', f
 //   assert.expect(1);
 //   this.set('content', TEDevents);
 
-//   this.actions = { assertChanged: function(selection) {
+//   this.actions = { assertChanged(selection) {
 //     assert.deepEqual(selection, itemsToSelect);
 //   }};
 

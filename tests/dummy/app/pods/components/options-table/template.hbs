@@ -9,9 +9,13 @@
     optionDisabledKey | optionally provide a boolean item property to use a flag for disabling menu items | string, null | null
     prompt | prompt text for the main input | string | 'Select an option'
     searchPrompt | prompt text for the search input | string | 'Type to search'
-    noResultsMessage | message to display if a filter produces no results | 'No matching results'
+    noResultsMessage | message to display if a filter produces no results | string | 'No matching results'
     limitSearchToWordBoundary | when set to true, search will only match the beginning of words | boolean | true
     sortBy | provide an options item key to sort the list by | boolean | false
+    isCreatable | when true, a create button is available to create the search text | boolean | false
+    createLabel | prompt to show beside the create button | string | 'Create'
+    createMatchCaseInsensitive | when true, the create button will hide if the search text matches an option, case insensitive. When false the search text must match an option exactly to hide the create button | boolean | false
+    on-create | Specify your own named action to trigger when the create button is clicked. eg. <code>(action "create")</code> | Ember action | Ember.K
     isClearable | when true, a clear button is available to clear the selection | boolean | true
     clearLabel | prompt to show beside the clear button for a clearable menu | string | 'Clear selection'
     on-change | Specify your own named action to trigger when the search text  changes. eg. <code>(action "update")</code> The search text is sent as an argument. | Ember action | Ember.K

@@ -19,7 +19,13 @@
         key-up="updateSearch"
         bubbles=false}}
     </div>
-
+    {{#if _isShowingCreate}}
+      <div class="Searchable-select__create" {{action "create" bubbles=false}}>
+        <span class="Searchable-select__create-icon">&#43;</span>
+        <span class="Searchable-select__create-label">{{createLabel}}</span>
+        <span class="Searchable-select__create-text">{{_searchText}}</span>
+      </div>
+    {{/if}}
     {{#if _isShowingClear}}
       <div class="Searchable-select__clear" {{action "clear" bubbles=false}}>
         <span class="Searchable-select__clear-icon">&times;</span>

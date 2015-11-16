@@ -1,3 +1,5 @@
+$searchable-select-create-bg: #FACB33;
+$searchable-select-create-color: #fff;
 $searchable-select-clear-bg: #33CBFA;
 $searchable-select-clear-color: #fff;
 $searchable-select-item-bg--selected: #eef6fa;
@@ -65,6 +67,9 @@ $searchable-select-spacer-horizontal: 1em;
     }
   }
 
+
+
+  &__create,
   &__clear {
     position: relative;
     line-height: 1;
@@ -74,12 +79,22 @@ $searchable-select-spacer-horizontal: 1em;
     color: $searchable-select-clear-color;
   }
 
+  &__create {
+    background: $searchable-select-create-bg;
+    color: $searchable-select-create-color;
+  }
+
+  &__create-icon,
   &__clear-icon {
     position: absolute;
     left: 0.6em;
     top: 50%;
     transform: translateY(-0.6em);
     font-size: 1.3em;
+    font-weight: bold;
+  }
+
+  &__create-text {
     font-weight: bold;
   }
 
