@@ -1,0 +1,31 @@
+<h3>Creating items</h3>
+<p>You may want to allow the creation of new items using your own <code>on-create</code> action. To do this, pass in your own boolean `isCreatable` property. When set to true, a "create" will display when you enter search text. It will disappear when false or if the search term exactly matches a result. You can customize the create label with the <code>createLabel</code> property.</p>
+
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="example-create.hbs"}}
+
+    {{code-snippet name="example-create.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET example-create --}}
+  <p>Search for "TED2016"</p>
+  {{searchable-select
+    content=TEDeventsCopy
+    selected=selected
+    sortBy="title"
+    isCreatable=true
+    on-create=(action "createItem")}}
+
+  <p>Known Events:</p>
+  <ul>
+    {{#each TEDeventsCopy as |event|}}
+      <li>{{event.title}}</li>
+    {{/each}}
+  </ul>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>
