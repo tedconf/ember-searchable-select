@@ -12,16 +12,21 @@ export default Ember.Component.extend({
   optionLabelKey: 'title',
   optionDisabledKey: null,
   sortBy: null,
+  limitSearchToWordBoundary: false,
+
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
   noResultsMessage: 'No matching results',
-  loadingMessage: 'Searching...',
-  clearLabel: 'Clear',
-  addLabel: 'Add',
+
   isClearable: true,
-  limitSearchToWordBoundary: false,
-  isLoading: false,
+  clearLabel: 'Clear',
+
   canAddNew: false,
+  addLabel: 'Add',
+
+  isLoading: false,
+  loadingMessage: 'Searching...',
+
   _searchText: '',
   _isShowingMenu: false,
   _isShowingClear: Ember.computed.and('isClearable', '_selected'),
@@ -38,8 +43,8 @@ export default Ember.Component.extend({
     '_isNotLoading'),
 
   'on-change': Ember.K,
-  'on-search': Ember.K,
   'on-add': Ember.K,
+  'on-search': Ember.K,
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -73,7 +78,8 @@ export default Ember.Component.extend({
       let searchText = this.get('_searchText');
 
       if (searchText){
-        let regex = this.get('limitSearchToWordBoundary') ? '\\b' + searchText : searchText;
+        let regex = this.get('limitSearchToWordBoundary') ?
+          '\\b' + searchText : searchText;
         return new RegExp(regex, 'i');
       }
     }

@@ -9,10 +9,10 @@
     optionLabelKey            | The item property to use as the visible label in the menu.   | string  | 'title'
     optionDisabledKey         | Optionally provide a boolean item property to use a flag for disabling menu items.  | string, null  | null
     sortBy                    | The item property to use for a sort key. Sorting is disabled when set to null. | string, null   | null
+    limitSearchToWordBoundary | When true, search will only match the beginning of words     | boolean     | true
     prompt                    | Prompt text for the main input.    | string    | 'Select an option'
     searchPrompt              | Prompt text for the search input.    | string    | 'Type to search'
     noResultsMessage          | Message to display if a filter produces no results    | string    | 'No matching results'
-    limitSearchToWordBoundary | When true, search will only match the beginning of words     | boolean     | true
     isClearable               | When true, a clear button is available to clear the input and remove any selection that has been made.     | boolean     | true
     clearLabel                | Text to display beside the clear button when `isClearable` is true. | string    | 'Clear selection'
     canAddNew                 | When true, unmatched search text can be added as a new item.   | boolean    | false
