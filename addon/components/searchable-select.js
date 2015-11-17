@@ -81,7 +81,8 @@ export default Ember.Component.extend({
       let searchText = this.get('_searchText');
 
       if (searchText){
-        let regex = this.get('limitSearchToWordBoundary') ? `\\b${searchText}` : searchText;
+        let regex = this.get('limitSearchToWordBoundary') ?
+          `\\b${searchText}` : searchText;
         return new RegExp(regex, 'i');
       }
     }
