@@ -11,21 +11,27 @@ export default Ember.Component.extend({
   selected: null,
   optionLabelKey: 'title',
   optionDisabledKey: null,
+  sortBy: null,
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
   noResultsMessage: 'No matching results',
   loadingMessage: 'Searching...',
-  limitSearchToWordBoundary: false,
-  isClearable: true,
   clearLabel: 'Clear',
-  sortBy: null,
+  addLabel: 'Add',
+  isClearable: true,
+  limitSearchToWordBoundary: false,
   isLoading: false,
+  canAddNew: false,
   _searchText: '',
   _isShowingMenu: false,
   _isShowingClear: Ember.computed.and('isClearable', '_selected'),
   _hasNoResults: Ember.computed.empty('filteredContent'),
   _hasResults: Ember.computed.not('_hasNoResults'),
   _isNotLoading: Ember.computed.not('isLoading'),
+  _isShowingAddNew: Ember.computed.and(
+    'canAddNew',
+    '_hasNoMatchedKeys',
+    '_searchText'),
   _isShowingNoResultsMessage: Ember.computed.and(
     '_searchText',
     '_hasNoResults',
@@ -33,6 +39,7 @@ export default Ember.Component.extend({
 
   'on-change': Ember.K,
   'on-search': Ember.K,
+  'on-add': Ember.K,
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -59,26 +66,49 @@ export default Ember.Component.extend({
     return this.get('on-search') === Ember.K;
   }),
 
-  filterRegex: Ember.computed('limitSearchToWordBoundary', '_searchText', function() {
-    let searchText = this.get('_searchText');
+  filterRegex: Ember.computed(
+    'limitSearchToWordBoundary',
+    '_searchText',
+      function() {
+      let searchText = this.get('_searchText');
 
-    if (searchText){
-      let regex = this.get('limitSearchToWordBoundary') ? '\\b' + searchText : searchText;
-      return new RegExp(regex, 'i');
+      if (searchText){
+        let regex = this.get('limitSearchToWordBoundary') ? '\\b' + searchText : searchText;
+        return new RegExp(regex, 'i');
+      }
     }
-  }),
+  ),
 
-  filteredContent: Ember.computed('sortedContent', 'optionLabelKey', 'filterRegex', 'isFilterActive', function() {
+  filteredContent: Ember.computed(
+    'sortedContent.[]',
+    'optionLabelKey',
+    'filterRegex',
+    'isFilterActive',
+  function() {
     let regex = this.get('filterRegex'),
         content = this.get('sortedContent');
     if (regex && this.get('isFilterActive')) {
-      return content.filter(item => {
+      return Ember.A(content.filter(item => {
         return regex.test(Ember.get(item, this.get('optionLabelKey')));
-      });
+      }));
     } else {
       return content;
     }
   }),
+
+  filteredKeys: Ember.computed('filteredContent', 'optionLabelKey', function() {
+    return Ember.A(this.get('filteredContent').mapBy(this.get('optionLabelKey')));
+  }),
+
+  _hasMatchedKey: Ember.computed('filteredKeys', '_searchText', function() {
+    let regex = new RegExp('^' + this.get('_searchText') + '$', 'i');
+
+    return this.get('filteredKeys').filter((key) => {
+      return regex.test(key);
+    }).length;
+  }),
+
+  _hasNoMatchedKeys: Ember.computed.not('_hasMatchedKey'),
 
   teardown: Ember.on('willDestroyElement', function() {
     this.unbindOutsideClicks();
@@ -137,14 +167,13 @@ export default Ember.Component.extend({
     clear(){
       this.send('selectItem', null);
     },
+    addNew(){
+      this['on-add'].call(this, this.get('_searchText'));
+      this.send('hideMenu');
+    },
     noop(){
       //need an action to able to attach bubbles:false to an elem
     }
   }
 
 });
-
-
-/* FEATURES::
-  - pagination??
-*/

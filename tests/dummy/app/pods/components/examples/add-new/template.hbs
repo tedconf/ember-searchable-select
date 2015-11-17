@@ -1,0 +1,24 @@
+<h3>Allowing new item creation</h3>
+<p>You can allow users to add a new item when no match is found by setting <code>canAddNew</code> to <code>true</code> and specifying an action for <code>on-add</code>. The typed text gets sent with the action as a parameter. You will need to handle updating the content array and the current selection on your own.</p>
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="add-new.hbs"}}
+
+    {{code-snippet name="add-new.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET add-new --}}
+  {{searchable-select
+    content=talkTags
+    sortBy="name"
+    optionLabelKey="tag"
+    canAddNew=true
+    selected=selectedTag
+    on-add=(action "addNew")}}
+
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>
