@@ -81,8 +81,7 @@ export default Ember.Component.extend({
       let searchText = this.get('_searchText');
 
       if (searchText){
-        let regex = this.get('limitSearchToWordBoundary') ?
-          '\\b' + searchText : searchText;
+        let regex = this.get('limitSearchToWordBoundary') ? `\\b${searchText}` : searchText;
         return new RegExp(regex, 'i');
       }
     }
@@ -94,11 +93,11 @@ export default Ember.Component.extend({
     '_filterRegex',
     '_isFilterActive',
   function() {
-    let regex = this.get('_filterRegex'),
+    let filterRegex = this.get('_filterRegex'),
         content = this.get('_sortedContent');
-    if (regex && this.get('_isFilterActive')) {
+    if (filterRegex && this.get('_isFilterActive')) {
       return Ember.A(content.filter(item => {
-        return regex.test(Ember.get(item, this.get('optionLabelKey')));
+        return filterRegex.test(Ember.get(item, this.get('optionLabelKey')));
       }));
     } else {
       return content;

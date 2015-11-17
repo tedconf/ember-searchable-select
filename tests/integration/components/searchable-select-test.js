@@ -79,20 +79,14 @@ test(
   function(assert) {
     assert.expect(7);
 
-  this.set('content', TEDevents);
-  this.render(hbs`{{searchable-select content=content}}`);
-
-  let $component = this.$();
-
-  $component.find('.Searchable-select__label').click();
-  let $searchInput = $component.find('.Searchable-select__input');
-  let $options = $component.find('.Searchable-select__option');
-  let $clear = $component.find('.Searchable-select__clear');
+    this.set('content', TEDevents);
+    this.render(hbs`{{searchable-select content=content}}`);
+    var $component = this.$();
 
     $component.find('.Searchable-select__label').click();
-    var $searchInput = $component.find('.Searchable-select__input'),
-        $options = $component.find('.Searchable-select__option'),
-        $clear = $component.find('.Searchable-select__clear');
+    let $searchInput = $component.find('.Searchable-select__input');
+    let $options = $component.find('.Searchable-select__option');
+    let $clear = $component.find('.Searchable-select__clear');
 
     assert.equal($component.find('.Searchable-select__menu').length, 1);
     assert.equal($searchInput.length, 1);
@@ -108,7 +102,7 @@ test(
       'item labels should default to "title" value');
 
     assert.equal($options.is('.Searchable-select__option--selected'), false,
-      'no options should be selected by default');
+      'no options should be selected by ault');
   }
 );
 
@@ -320,8 +314,8 @@ test(
     assert.expect(1);
     this.set('content', TEDevents);
     this.actions = {
-      assertChanged: function() {
-      //this action should not fire
+      assertChanged() {
+        // this action should not fire
       }
     };
 
@@ -331,7 +325,7 @@ test(
       on-change=(action "assertChanged")}}`);
 
     this.$('.Searchable-select__label').click();
-    var disabledOptions = this.$('.Searchable-select__option--disabled');
+    let disabledOptions = this.$('.Searchable-select__option--disabled');
     disabledOptions.eq(0).click();
 
     assert.equal(disabledOptions.length, 2);

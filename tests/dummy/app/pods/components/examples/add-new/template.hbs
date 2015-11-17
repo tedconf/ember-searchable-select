@@ -1,5 +1,8 @@
 <h3>Allowing new item creation</h3>
-<p>You can allow users to add a new item when no match is found by specifying an action for <code>on-add</code>. The typed text gets sent with the action as a parameter. You will need to handle updating the content array and the current selection on your own. You can also customize the "Add " text with the <code>addLabel</code> option.</p>
+
+<p>You can allow users to add a new item when no match is found by specifying an action for <code>on-add</code>. The typed text gets sent with the action as a parameter. You will need to handle updating the content array and the current selection on your own.</p>
+<p>The "Add " text can be customized with the <code>addLabel</code> option.</p>
+
 <br>
   <div class="row">
   <div class="col-md-6">
@@ -14,7 +17,6 @@
     content=talkTags
     sortBy="name"
     optionLabelKey="tag"
-    canAddNew=true
     selected=selectedTag
     on-add=(action "addNew")}}
 
