@@ -39,5 +39,16 @@ export default Ember.Controller.extend({
       title: 'TED2013',
       keywords: ''
     }
+  ]),
+
+  talkTags: Ember.A([
+    {
+      id: 1,
+      tag: 'funny'
+    },
+    {
+      id: 2,
+      tag: 'inspiring'
+    }
   ])
 });
