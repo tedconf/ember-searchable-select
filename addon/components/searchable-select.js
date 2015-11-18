@@ -57,8 +57,8 @@ export default Ember.Component.extend({
     }
   }),
 
-  _sortArray: Ember.computed('sortBy', function(){
-    if (this.get('sortBy')){
+  _sortArray: Ember.computed('sortBy', function() {
+    if (this.get('sortBy')) {
       return [this.get('sortBy')];
     }
     return [];
@@ -126,15 +126,15 @@ export default Ember.Component.extend({
   }),
 
   _bindOutsideClicks() {
-    var component = this;
-    $(window).one('click.' + component.elementId, function() {
+    let component = this;
+    $(window).one(`click.${component.elementId}`, function() {
       component.send('hideMenu');
     });
   },
 
   _unbindOutsideClicks() {
-    var component = this;
-    $(window).off('click.' + component.elementId);
+    let component = this;
+    $(window).off(`click.${component.elementId}`);
   },
 
   actions: {
@@ -144,7 +144,7 @@ export default Ember.Component.extend({
     },
     selectItem(item) {
       if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))) {
-        //item is disabled
+        // item is disabled
         return;
       }
       this.set('_selected', item);
@@ -183,7 +183,7 @@ export default Ember.Component.extend({
       this.send('hideMenu');
     },
     noop() {
-      //need an action to able to attach bubbles:false to an elem
+      // need an action to able to attach bubbles:false to an elem
     }
   }
 
