@@ -5,10 +5,10 @@ import Ember from 'ember';
 moduleForComponent(
   'searchable-select',
   'Integration | Component | searchable select',
-  {integration: true}
+  { integration: true }
 );
 
-var TEDevents = Ember.A([
+const TEDevents = Ember.A([
   {
     id: 1,
     title: 'TED2015',
@@ -79,9 +79,15 @@ test(
   function(assert) {
     assert.expect(7);
 
-    this.set('content', TEDevents);
-    this.render(hbs`{{searchable-select content=content}}`);
-    var $component = this.$();
+  this.set('content', TEDevents);
+  this.render(hbs`{{searchable-select content=content}}`);
+
+  let $component = this.$();
+
+  $component.find('.Searchable-select__label').click();
+  let $searchInput = $component.find('.Searchable-select__input');
+  let $options = $component.find('.Searchable-select__option');
+  let $clear = $component.find('.Searchable-select__clear');
 
     $component.find('.Searchable-select__label').click();
     var $searchInput = $component.find('.Searchable-select__input'),
@@ -111,7 +117,8 @@ test('can change the search prompt to a new string', function(assert) {
   this.set('searchPrompt', 'type to search events');
 
   this.render(hbs`{{searchable-select searchPrompt=searchPrompt}}`);
-  var $component = this.$();
+
+  let $component = this.$();
   $component.find('.Searchable-select__label').click();
 
   assert.equal(
@@ -127,7 +134,8 @@ test('can specify an alternate path for option label', function(assert) {
   this.render(hbs`{{searchable-select
     content=content
     optionLabelKey=optionLabelKey}}`);
-  var $component = this.$();
+
+  let $component = this.$();
   $component.find('.Searchable-select__label').click();
 
   assert.equal(
@@ -143,7 +151,7 @@ test('can pass in an initial selection', function(assert) {
   this.render(hbs`{{searchable-select content=content selected=selected}}`);
   this.$('.Searchable-select__label').click();
 
-  var $selected = this.$('.Searchable-select__option-label--selected');
+  let $selected = this.$('.Searchable-select__option-label--selected');
   assert.equal($selected.text().trim(), 'TED2014');
 
   assert.equal(this.$('.Searchable-select__clear').length, 1,
@@ -158,7 +166,7 @@ test('can sort the options by a provided key', function(assert) {
   this.render(hbs`{{searchable-select content=content sortBy=sortBy}}`);
   this.$('.Searchable-select__label').click();
 
-  var $options = this.$('.Searchable-select__option');
+  let $options = this.$('.Searchable-select__option');
 
   assert.equal($options.eq(0).text().trim(), 'TED2013');
   assert.equal($options.eq(1).text().trim(), 'TED2014');
@@ -179,7 +187,7 @@ test('can type to refine the list of options', function(assert) {
     '2013',
     'search string is highlighted');
 
-  //if there are no results matching, i see a message
+  // if there are no results matching, i see a message
   this.$('.Searchable-select__input').val('zzz').keyup();
   assert.equal(
     this.$('.Searchable-select__info').text().trim(),
@@ -206,11 +214,13 @@ test('selection gets passed out with the on-change action', function(assert) {
   assert.expect(1);
   this.set('content', TEDevents);
 
-  var itemToSelect = TEDevents.findBy('title', 'TEDGlobal 2014');
+  let itemToSelect = TEDevents.findBy('title', 'TEDGlobal 2014');
 
-  this.actions = { assertChanged: function(selection) {
-    assert.deepEqual(selection, itemToSelect);
-  }};
+  this.actions = {
+    assertChanged(selection) {
+      assert.deepEqual(selection, itemToSelect);
+    }
+  };
 
   this.render(hbs`{{searchable-select
     content=content
@@ -220,7 +230,7 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
 });
 
-//TODO: get this test working properly, works in demo app,
+// TODO: get this test working properly, works in demo app,
 // test('filtered list should reset after a selection is made', function(assert) {
 //   assert.expect(1);
 
@@ -241,12 +251,14 @@ test('search text gets passed out with the on-search action', function(assert) {
   assert.expect(2);
   this.set('content', TEDevents);
 
-  this.actions = { assertSearched: function(searchText) {
-    assert.equal(searchText, 'global');
-    assert.equal(
-      this.$('.Searchable-select__option').length, 7,
-      'filtering should be disabled when an on-search action is used');
-  }};
+  this.actions = {
+    assertSearched(searchText) {
+      assert.equal(searchText, 'global');
+      assert.equal(
+        this.$('.Searchable-select__option').length, 7,
+        'filtering should be disabled when an on-search action is used');
+    }
+  };
 
   this.render(hbs`{{searchable-select
     content=content
@@ -274,9 +286,11 @@ test('can clear the selection with a clear button', function(assert) {
   this.set('content', TEDevents);
   this.set('selected', TEDevents.findBy('id', 3));
 
-  this.actions = { assertChanged: function(selection) {
-    assert.deepEqual(selection, null);
-  }};
+  this.actions = {
+    assertChanged(selection) {
+      assert.deepEqual(selection, null);
+    }
+  };
 
   this.render(hbs`{{searchable-select
     content=content
@@ -305,9 +319,11 @@ test(
   function(assert) {
     assert.expect(1);
     this.set('content', TEDevents);
-    this.actions = { assertChanged: function() {
+    this.actions = {
+      assertChanged: function() {
       //this action should not fire
-    }};
+      }
+    };
 
     this.render(hbs`{{searchable-select
       content=content

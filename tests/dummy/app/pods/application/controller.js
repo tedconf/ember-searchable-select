@@ -3,9 +3,9 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
   TEDevents: Ember.A([
     {
-     id: 1,
-     title: 'TED2015',
-     keywords: ''
+      id: 1,
+      title: 'TED2015',
+      keywords: ''
     },
     {
       id: 2,
@@ -14,9 +14,9 @@ export default Ember.Controller.extend({
       isTEDxEvent: true
     },
     {
-     id: 3,
-     title: 'TED2014',
-     keywords: ''
+      id: 3,
+      title: 'TED2014',
+      keywords: ''
     },
     {
       id: 4,

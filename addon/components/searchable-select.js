@@ -3,7 +3,7 @@ import layout from '../templates/components/searchable-select';
 /* global $ */
 
 export default Ember.Component.extend({
-  layout: layout,
+  layout,
   classNames: ['Searchable-select'],
   classNameBindings: ['_isShowingMenu:Searchable-select--menu-open'],
 
@@ -49,10 +49,10 @@ export default Ember.Component.extend({
   // `Ember.computed.oneWay` won't pick up on upstream
   // changes after the prop gets set internally.
   _selected: Ember.computed('selected', {
-    get: function() {
+    get() {
       return this.get('selected');
     },
-    set: function(key, value){
+    set(key, value) {
       return value;
     }
   }),
@@ -123,24 +123,24 @@ export default Ember.Component.extend({
     this._unbindOutsideClicks();
   }),
 
-  _bindOutsideClicks: function(){
+  _bindOutsideClicks() {
     var component = this;
     $(window).one('click.' + component.elementId, function() {
       component.send('hideMenu');
     });
   },
 
-  _unbindOutsideClicks: function() {
+  _unbindOutsideClicks() {
     var component = this;
     $(window).off('click.' + component.elementId);
   },
 
   actions: {
-    updateSearch(text){
+    updateSearch(text) {
       this.set('_searchText', text);
       this['on-search'].call(this, text);
     },
-    selectItem(item){
+    selectItem(item) {
       if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))){
         //item is disabled
         return;
@@ -149,14 +149,14 @@ export default Ember.Component.extend({
       this['on-change'].call(this, item);
       this.send('hideMenu');
     },
-    toggleMenu(){
+    toggleMenu() {
       if (this.get('_isShowingMenu')){
         this.send('hideMenu');
       } else {
         this.send('showMenu');
       }
     },
-    showMenu(){
+    showMenu() {
       this.set('_isShowingMenu', true);
 
       Ember.run.scheduleOnce('afterRender', this, function() {
@@ -168,12 +168,12 @@ export default Ember.Component.extend({
         this._bindOutsideClicks();
       });
     },
-    hideMenu(){
+    hideMenu() {
       this.set('_isShowingMenu', false);
       this._unbindOutsideClicks();
       this.set('_searchText', '');
     },
-    clear(){
+    clear() {
       this.send('selectItem', null);
     },
     addNew(){

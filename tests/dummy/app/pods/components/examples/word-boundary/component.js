@@ -4,7 +4,7 @@ export default Ember.Component.extend({
   classNames: 'Example',
   setBySearchable: null,
   actions: {
-    update(selection){
+    update(selection) {
       this.set('setBySearchable', selection);
     }
   }

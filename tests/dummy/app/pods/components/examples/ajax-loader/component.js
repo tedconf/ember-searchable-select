@@ -10,18 +10,18 @@ export default Ember.Component.extend({
   isLoadingEvents: false,
 
   actions: {
-    updateSelection(selection){
+    updateSelection(selection) {
       this.set('setBySearchable', selection);
     },
-    updateSearch(text){
+    updateSearch(text) {
       this.set('queryText', text);
       this.set('filteredTEDevents', null);
 
-      if (text){
+      if (text) {
         this.send('searchForEvents');
       }
     },
-    searchForEvents(){
+    searchForEvents() {
       // If you have a slow AJAX response, you can pass
       // in an `isLoading` flag to display a loader.
       // Set to true while you're fetching results...
@@ -35,7 +35,7 @@ export default Ember.Component.extend({
         return regex.test(item.title) || regex.test(item.keywords);
       });
 
-      //...then set back to false once the AJAX call resolves.
+      // ...then set back to false once the AJAX call resolves.
 
       // Here, we pretend have a slow response using .setTimeout().
       // With a real AJAX fetch this would happen in the callback or

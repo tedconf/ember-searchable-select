@@ -9,10 +9,10 @@ export default Ember.Component.extend({
   queryText: null,
 
   actions: {
-    updateSelection(selection){
+    updateSelection(selection) {
       this.set('setBySearchable', selection);
     },
-    updateSearch(text){
+    updateSearch(text) {
       // this example filters a local data set,
       // you could also AJAX update your content here
       this.set('queryText', text);
