@@ -80,7 +80,7 @@ export default Ember.Component.extend({
       function() {
       let searchText = this.get('_searchText');
 
-      if (searchText){
+      if (searchText) {
         let regex = this.get('limitSearchToWordBoundary') ?
           `\\b${searchText}` : searchText;
         return new RegExp(regex, 'i');
@@ -94,8 +94,9 @@ export default Ember.Component.extend({
     '_filterRegex',
     '_isFilterActive',
   function() {
-    let filterRegex = this.get('_filterRegex'),
-        content = this.get('_sortedContent');
+    let filterRegex = this.get('_filterRegex');
+    let content = this.get('_sortedContent');
+
     if (filterRegex && this.get('_isFilterActive')) {
       return Ember.A(content.filter(item => {
         return filterRegex.test(Ember.get(item, this.get('optionLabelKey')));
@@ -110,7 +111,8 @@ export default Ember.Component.extend({
   }),
 
   _hasMatchedKey: Ember.computed('_filteredKeys', '_searchText', function() {
-    let regex = new RegExp('^' + this.get('_searchText') + '$', 'i');
+    // let regex = new RegExp('^' + this.get('_searchText') + '$', 'i');
+    let regex = new RegExp(`^${this.get('_searchText')}$`, 'i');
 
     return this.get('_filteredKeys').filter((key) => {
       return regex.test(key);
@@ -141,7 +143,7 @@ export default Ember.Component.extend({
       this['on-search'].call(this, text);
     },
     selectItem(item) {
-      if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))){
+      if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))) {
         //item is disabled
         return;
       }
@@ -150,7 +152,7 @@ export default Ember.Component.extend({
       this.send('hideMenu');
     },
     toggleMenu() {
-      if (this.get('_isShowingMenu')){
+      if (this.get('_isShowingMenu')) {
         this.send('hideMenu');
       } else {
         this.send('showMenu');
@@ -176,11 +178,11 @@ export default Ember.Component.extend({
     clear() {
       this.send('selectItem', null);
     },
-    addNew(){
+    addNew() {
       this['on-add'].call(this, this.get('_searchText'));
       this.send('hideMenu');
     },
-    noop(){
+    noop() {
       //need an action to able to attach bubbles:false to an elem
     }
   }

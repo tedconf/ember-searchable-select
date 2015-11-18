@@ -81,7 +81,8 @@ test(
 
     this.set('content', TEDevents);
     this.render(hbs`{{searchable-select content=content}}`);
-    var $component = this.$();
+
+    let $component = this.$();
 
     $component.find('.Searchable-select__label').click();
     let $searchInput = $component.find('.Searchable-select__input');
@@ -340,9 +341,11 @@ test(
     let textToAdd = 'bananas';
 
     this.set('content', TEDevents);
-    this.actions = { assertAdded: function(text) {
-      assert.equal(text, textToAdd, 'an add action gets sent');
-    }};
+    this.actions = {
+      assertAdded(text) {
+        assert.equal(text, textToAdd, 'an add action gets sent');
+      }
+    };
 
     this.render(hbs`{{searchable-select
       content=content
@@ -357,7 +360,7 @@ test(
     assert.equal($addNew.length, 1);
     assert.equal(this.$('.Searchable-select__add-new:contains("Add new event:")').length, 1);
 
-    $addNew.click(); ///trigger the add action
+    $addNew.click(); // trigger the add action
   }
 );
 

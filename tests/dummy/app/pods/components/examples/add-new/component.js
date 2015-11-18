@@ -11,7 +11,7 @@ export default Ember.Component.extend({
   selectedTag: null,
   numTags: Ember.computed.alias('talkTags.length'),
   actions: {
-    addNew(text){
+    addNew(text) {
       this.set('newItemName', text);
 
       let newTag = {
