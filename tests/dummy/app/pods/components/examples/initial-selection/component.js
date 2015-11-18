@@ -8,7 +8,7 @@ export default Ember.Component.extend({
     return this.get('TEDevents').findBy('title', 'TED2015');
   }),
   actions: {
-    update(selection){
+    update(selection) {
       this.set('setBySearchable', selection);
     }
   }
