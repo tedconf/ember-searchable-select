@@ -336,7 +336,6 @@ test(
 
     this.render(hbs`{{searchable-select
       content=content
-      canAddNew=true
       addLabel="Add new event:"
       on-add=(action "assertAdded")}}`);
 

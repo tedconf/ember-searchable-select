@@ -81,7 +81,7 @@
 
     {{#if _hasResults}}
     <ul class="Searchable-select__options-list">
-      {{#each filteredContent key="@index" as |option|}}
+      {{#each _filteredContent key="@index" as |option|}}
         <li
           class="Searchable-select__option
           {{if (searchable-select-is-equal option _selected)

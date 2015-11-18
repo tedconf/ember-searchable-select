@@ -15,9 +15,8 @@
     noResultsMessage          | Message to display if a filter produces no results    | string    | 'No matching results'
     isClearable               | When true, a clear button is available to clear the input and remove any selection that has been made.     | boolean     | true
     clearLabel                | Text to display beside the clear button when `isClearable` is true. | string    | 'Clear selection'
-    canAddNew                 | When true, unmatched search text can be added as a new item.   | boolean    | false
-    addLabel                  | Text to show before the new text to be added when `canAddNew` is true. | string    | 'Add'
-    on-add                    | Specify your own named action to trigger when a new item is added. eg. <code>(action "addNew")</code> The new item name is sent as an argument.  Only available when `canAddNew` is true. | Ember action  | Ember.K
+    addLabel                  | Text to show before the new text to be added when an `on-add` action has been provided. | string    | 'Add'
+    on-add                    | Allow new item creation from unmatched search text by specifying your own named action to trigger when a new item is added. eg. <code>(action "addNew")</code> The new item name is sent as an argument.  | Ember action  | Ember.K
     on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is provided.     | Ember action    | Ember.K
     isLoading                 | Pass in your own boolean flag to toggle visibility of a loading animation.     | boolean     | false
     loadingMessage            | Text to displayed beside the loading animation when `isLoading` is true.    | string    | 'Searching...'
