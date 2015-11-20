@@ -9,7 +9,7 @@ export function searchableSelectHighlightMatch([text, matchText]) {
     new RegExp(`(${matchText})`, 'i'),
     '<span class="Searchable-select__matched-text">$1</span>');
 
-    return Ember.String.htmlSafe(highlightedText);
+  return Ember.String.htmlSafe(highlightedText);
 }
 
 export default Ember.Helper.helper(searchableSelectHighlightMatch);
