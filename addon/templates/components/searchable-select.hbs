@@ -2,8 +2,10 @@
   class="Searchable-select__label
     {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
   {{action "toggleMenu"}}>
-  {{#if _selected}}
-    {{searchable-select-get _selected optionLabelKey}}
+  {{#if _selectedArray.length}}
+    {{#each _selectedArray as |selectedOption|}}
+      {{searchable-select-get selectedOption optionLabelKey}}
+    {{/each}}
   {{else}}
     {{prompt}}
   {{/if}}

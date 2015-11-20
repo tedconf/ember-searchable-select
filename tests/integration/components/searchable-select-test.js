@@ -220,8 +220,8 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.render(hbs`{{searchable-select
     content=content
     on-change=(action "assertChanged")}}`);
-  this.$('.Searchable-select__label').click();
 
+  this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
 });
 
@@ -241,6 +241,44 @@ test('selection gets passed out with the on-change action', function(assert) {
 //   $component.find('.Searchable-select__label').click();
 //   assert.equal($component.find('.Searchable-select__option').length, 7);
 // });
+
+test('can use mulit-select when multiple is true', function(assert) {
+  assert.expect(4);
+  this.set('content', TEDevents);
+  this.set('initalSelection',  TEDEvents.findBy(name, 'TED2013'));
+
+  let expectedSelection = TEDevents.filter(event => {
+    return event.name === 'TED2013' || event.name === 'TED2014';
+  });
+
+  this.actions = { assertChanged: function(selection) {
+    assert.deepEqual(selection, expectedSelection,
+      'multi select is passed out as an array');
+  }};
+
+  this.render(hbs`{{searchable-select
+    content=content
+    multiple=true
+    selection=initialSelection
+    on-change=(action "assertChanged")}}`);
+
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__option:contains("TED2014")').click();
+
+  let $selectedPills = this.$('.Searchable-select__mutli-selected');
+
+  assert.equal(this.$selectedPills.length, 2,
+    'all selected options are displayed');
+  assert.equal(this.$selectedPills.is(':contains("TED2014")'), 1,
+    'pills are labeled with optionLabelKey');
+
+  $selectedPills[0].find('.Searchable-select__mutli-selected__clear').click();
+
+  assert.equal(this.$selectedPills.length, 2,
+    'all selected options are displayed');
+});
+
 
 test('search text gets passed out with the on-search action', function(assert) {
   assert.expect(2);
@@ -262,6 +300,7 @@ test('search text gets passed out with the on-search action', function(assert) {
   this.$('.Searchable-select__input').val('global').keyup();
 
 });
+
 
 test('can toggle and customize a loading state', function(assert) {
   assert.expect(2);
@@ -363,23 +402,6 @@ test(
     $addNew.click(); // trigger the add action
   }
 );
-
-// test('multiple selection gets passed out as an array;', function(assert) {
-//   assert.expect(1);
-//   this.set('content', TEDevents);
-
-//   this.actions = { assertChanged: function(selection) {
-//     assert.deepEqual(selection, itemsToSelect);
-//   }};
-
-//   var itemsToSelect = options.rejectBy('code', 'en');
-
-//   this.render(hbs`{{searchable-select content=content multiple=true on-change=(action "assertChanged")}}`);
-
-//   this.$('select').val([1,2]);
-//   this.$('select').trigger('change');
-
-// });
 
 // test('can create a two way binding on the selection', function(assert) {
 //   assert.expect(1);

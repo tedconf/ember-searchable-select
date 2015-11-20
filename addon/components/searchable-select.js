@@ -13,6 +13,7 @@ export default Ember.Component.extend({
   optionDisabledKey: null,
   sortBy: null,
   limitSearchToWordBoundary: false,
+  multiple: false,
 
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
@@ -54,6 +55,17 @@ export default Ember.Component.extend({
     },
     set(key, value) {
       return value;
+    }
+  }),
+
+  // turn single selection alues into an array so we can work with single and
+  // multiple selections consistently in the template
+  _selectedArray: Ember.computed('_selected', function() {
+    let _selected = this.get('_selected');
+    if (_selected){
+      return Array.isArray(_selected) ? _selected : Ember.A([_selected]);
+    } else {
+      return Ember.A([]);
     }
   }),
 
@@ -137,6 +149,18 @@ export default Ember.Component.extend({
     $(window).off(`click.${component.elementId}`);
   },
 
+  _toggleSelection(item){
+    let selectedOptions = this.get('_selectedArray');
+
+    if (selectedOptions.contains(item)){
+      selectedOptions.removeObject(item);
+    } else {
+      selectedOptions.addObject(item);
+    }
+
+    return selectedOptions;
+  },
+
   actions: {
     updateSearch(text) {
       this.set('_searchText', text);
@@ -147,8 +171,15 @@ export default Ember.Component.extend({
         // item is disabled
         return;
       }
-      this.set('_selected', item);
-      this['on-change'].call(this, item);
+
+      if (this.get('multiple')){
+        //add or remove item from selection
+        var newSelection = this._toggleSelection(item);
+        this['on-change'].call(this, newSelection);
+      } else {
+        // replace selection
+        this.set('_selected', item);
+      }
       this.send('hideMenu');
     },
     toggleMenu() {

@@ -1,0 +1,27 @@
+{{#ember-markdown-section}}
+### Multiple select
+
+Setting `multiple=true` will put the menu into multi-select mode. Selected options are displayed as pills that can be individually removed. When in multi-select mode, 'on-change' sends an array of objects as an argument, rather than a single object.
+
+{{/ember-markdown-section}}
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="default.hbs"}}
+
+    {{code-snippet name="example-default.js"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET default --}}
+  {{searchable-select
+    content=TEDevents
+    sortBy="title"
+    multiple=true
+    on-change=(action "update")}}
+
+  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>
