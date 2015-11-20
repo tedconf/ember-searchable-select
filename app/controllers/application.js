@@ -1,1 +1,0 @@
-export { default } from 'ember-searchable-select/controllers/application';
