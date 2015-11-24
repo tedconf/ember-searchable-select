@@ -94,7 +94,6 @@ test('mutli-selected options display as pills', function(assert) {
     multiple=true
     selected=initialSelection}}`);
 
-
   let $selectedPills = this.$('.Searchable-select__selected-pill');
 
   assert.equal($selectedPills.length, 2);
@@ -115,10 +114,9 @@ test('can remove selection with pill clear button', function(assert) {
     multiple=true
     selected=initialSelection}}`);
 
-
- this.$('.Searchable-select__selected-pill:contains("TED2014")')
-  .find('.Searchable-select__selected-pill-clear')
-  .click();
+  this.$('.Searchable-select__selected-pill:contains("TED2014")')
+    .find('.Searchable-select__selected-pill-clear')
+    .click();
 
   assert.equal(this.$('.Searchable-select__selected-pill').length, 1);
   assert.equal(
@@ -151,7 +149,7 @@ test('can clear multi selection with a clear button', function(assert) {
 
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__clear').click();
-})
+});
 
 test('can toggle selected state of a multi-select option', function(assert) {
   assert.expect(4);
