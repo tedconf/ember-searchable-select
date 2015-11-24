@@ -3,6 +3,8 @@
 
 Setting `multiple=true` will put the menu into multi-select mode. Selected options are displayed as pills that can be individually removed. When in multi-select mode, 'on-change' sends an array of objects as an argument, rather than a single object.
 
+When combined with new item creation (below), searchable-select can be used as a tagging UI component.
+
 {{/ember-markdown-section}}
 <br>
   <div class="row">
@@ -18,9 +20,15 @@ Setting `multiple=true` will put the menu into multi-select mode. Selected optio
     content=TEDevents
     sortBy="title"
     multiple=true
+    prompt="Choose events"
     on-change=(action "update")}}
 
-  <p>Set by Searchable: {{setBySearchable.title}}</p>
+  <p>Set by Searchable:</p>
+  <ul>
+    {{#each setBySearchable as |selection|}}
+      <li>{{selection.title}}</li>
+    {{/each}}
+  </ul>
   {{!-- END-SNIPPET --}}
 
   </div>

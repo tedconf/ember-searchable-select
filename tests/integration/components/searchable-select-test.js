@@ -242,44 +242,6 @@ test('selection gets passed out with the on-change action', function(assert) {
 //   assert.equal($component.find('.Searchable-select__option').length, 7);
 // });
 
-test('can use mulit-select when multiple is true', function(assert) {
-  assert.expect(4);
-  this.set('content', TEDevents);
-  this.set('initalSelection',  TEDEvents.findBy(name, 'TED2013'));
-
-  let expectedSelection = TEDevents.filter(event => {
-    return event.name === 'TED2013' || event.name === 'TED2014';
-  });
-
-  this.actions = { assertChanged: function(selection) {
-    assert.deepEqual(selection, expectedSelection,
-      'multi select is passed out as an array');
-  }};
-
-  this.render(hbs`{{searchable-select
-    content=content
-    multiple=true
-    selection=initialSelection
-    on-change=(action "assertChanged")}}`);
-
-
-  this.$('.Searchable-select__label').click();
-  this.$('.Searchable-select__option:contains("TED2014")').click();
-
-  let $selectedPills = this.$('.Searchable-select__mutli-selected');
-
-  assert.equal(this.$selectedPills.length, 2,
-    'all selected options are displayed');
-  assert.equal(this.$selectedPills.is(':contains("TED2014")'), 1,
-    'pills are labeled with optionLabelKey');
-
-  $selectedPills[0].find('.Searchable-select__mutli-selected__clear').click();
-
-  assert.equal(this.$selectedPills.length, 2,
-    'all selected options are displayed');
-});
-
-
 test('search text gets passed out with the on-search action', function(assert) {
   assert.expect(2);
   this.set('content', TEDevents);
@@ -298,9 +260,7 @@ test('search text gets passed out with the on-search action', function(assert) {
     on-search=(action "assertSearched")}}`);
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__input').val('global').keyup();
-
 });
-
 
 test('can toggle and customize a loading state', function(assert) {
   assert.expect(2);
@@ -403,18 +363,20 @@ test(
   }
 );
 
-// test('can create a two way binding on the selection', function(assert) {
-//   assert.expect(1);
+test('can create a two way binding on the selection', function(assert) {
+  assert.expect(1);
 
-//   this.set('content', TEDevents);
-//   this.set('selection', null);
-//   var itemToSelect = options.findBy('id', 2);
+  this.set('content', TEDevents);
+  this.set('selection', null);
+  var itemToSelect = TEDevents.findBy('title', 'TED2015');
 
-//   this.render(hbs`{{searchable-select content=content on-change=(action (mut selection))}}`);
+  this.render(hbs`{{searchable-select
+    content=content
+    on-change=(action (mut selection))}}`);
 
-//   this.$('select').val(2);
-//   this.$('select').trigger('change');
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__option:contains("TED2015")').click();
 
-//   assert.equal(this.get('selection'), itemToSelect);
+  assert.equal(this.get('selection'), itemToSelect);
 
-// });
+});
