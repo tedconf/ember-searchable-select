@@ -368,7 +368,7 @@ test('can create a two way binding on the selection', function(assert) {
 
   this.set('content', TEDevents);
   this.set('selection', null);
-  var itemToSelect = TEDevents.findBy('title', 'TED2015');
+  let itemToSelect = TEDevents.findBy('title', 'TED2015');
 
   this.render(hbs`{{searchable-select
     content=content

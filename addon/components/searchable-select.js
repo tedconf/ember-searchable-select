@@ -162,10 +162,9 @@ export default Ember.Component.extend({
   _toggleSelection(item) {
     let selectedOptions = this.get('_selectedArray');
 
-    if (item === null){
+    if (item === null) {
       selectedOptions.clear();
-    }
-    else if (selectedOptions.contains(item)) {
+    } else if (selectedOptions.contains(item)) {
       selectedOptions.removeObject(item);
     } else {
       selectedOptions.addObject(item);
@@ -225,7 +224,7 @@ export default Ember.Component.extend({
     clear() {
       this.send('selectItem', null);
     },
-    removeOption(option){
+    removeOption(option) {
       this.get('_selectedArray').removeObject(option);
     },
     addNew() {
