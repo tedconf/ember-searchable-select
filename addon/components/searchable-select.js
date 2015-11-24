@@ -13,6 +13,7 @@ export default Ember.Component.extend({
   optionDisabledKey: null,
   sortBy: null,
   limitSearchToWordBoundary: false,
+  multiple: false,
 
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
@@ -28,10 +29,14 @@ export default Ember.Component.extend({
 
   _searchText: '',
   _isShowingMenu: false,
-  _isShowingClear: Ember.computed.and('isClearable', '_selected'),
+  _hasSelection: Ember.computed.alias('_selectedArray.length'),
+  _isShowingClear: Ember.computed.and('isClearable', '_hasSelection'),
   _hasNoResults: Ember.computed.empty('_filteredContent'),
   _hasResults: Ember.computed.not('_hasNoResults'),
   _isNotLoading: Ember.computed.not('isLoading'),
+  _isSingleSelect: Ember.computed.not('multiple'),
+  _hasMultipleSelection: Ember.computed.and('multiple', '_hasSelection'),
+  _hasSingleSelection: Ember.computed.and('_isSingleSelect', '_hasSelection'),
   _isShowingAddNew: Ember.computed.and(
     '_canAddNew',
     '_hasNoMatchedKeys',
@@ -54,6 +59,18 @@ export default Ember.Component.extend({
     },
     set(key, value) {
       return value;
+    }
+  }),
+
+  // turn single selection values into an array so we can work with
+  // both single and multiple selections consistently in the template
+  _selectedArray: Ember.computed('_selected', function() {
+    let _selected = this.get('_selected');
+
+    if (_selected) {
+      return Array.isArray(_selected) ? Ember.A(_selected) : Ember.A([_selected]);
+    } else {
+      return Ember.A([]);
     }
   }),
 
@@ -106,9 +123,14 @@ export default Ember.Component.extend({
     }
   }),
 
-  _filteredKeys: Ember.computed('_filteredContent', 'optionLabelKey', function() {
-    return Ember.A(this.get('_filteredContent').mapBy(this.get('optionLabelKey')));
-  }),
+  _filteredKeys: Ember.computed(
+    '_filteredContent',
+    'optionLabelKey',
+    function() {
+      let optKey = this.get('optionLabelKey');
+      return Ember.A(this.get('_filteredContent').mapBy(optKey));
+    }
+  ),
 
   _hasMatchedKey: Ember.computed('_filteredKeys', '_searchText', function() {
     // let regex = new RegExp('^' + this.get('_searchText') + '$', 'i');
@@ -137,18 +159,42 @@ export default Ember.Component.extend({
     $(window).off(`click.${component.elementId}`);
   },
 
+  _toggleSelection(item) {
+    let selectedOptions = this.get('_selectedArray');
+
+    if (item === null) {
+      selectedOptions.clear();
+    } else if (selectedOptions.contains(item)) {
+      selectedOptions.removeObject(item);
+    } else {
+      selectedOptions.addObject(item);
+    }
+
+    return selectedOptions;
+  },
+
   actions: {
     updateSearch(text) {
       this.set('_searchText', text);
       this['on-search'].call(this, text);
     },
     selectItem(item) {
-      if (this.get('optionDisabledKey') && Ember.get(item, this.get('optionDisabledKey'))) {
-        // item is disabled
+      let disabledKey = this.get('optionDisabledKey');
+
+      if (item && disabledKey && Ember.get(item, disabledKey)) {
+        // item is disabled, do nothing
         return;
       }
-      this.set('_selected', item);
-      this['on-change'].call(this, item);
+
+      if (this.get('multiple')) {
+        // add or remove item from selection
+        let newSelection = this._toggleSelection(item);
+        this['on-change'].call(this, newSelection);
+      } else {
+        // replace selection
+        this.set('_selected', item);
+        this['on-change'].call(this, item);
+      }
       this.send('hideMenu');
     },
     toggleMenu() {
@@ -177,6 +223,9 @@ export default Ember.Component.extend({
     },
     clear() {
       this.send('selectItem', null);
+    },
+    removeOption(option) {
+      this.get('_selectedArray').removeObject(option);
     },
     addNew() {
       this['on-add'].call(this, this.get('_searchText'));

@@ -220,8 +220,8 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.render(hbs`{{searchable-select
     content=content
     on-change=(action "assertChanged")}}`);
-  this.$('.Searchable-select__label').click();
 
+  this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
 });
 
@@ -260,7 +260,6 @@ test('search text gets passed out with the on-search action', function(assert) {
     on-search=(action "assertSearched")}}`);
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__input').val('global').keyup();
-
 });
 
 test('can toggle and customize a loading state', function(assert) {
@@ -364,35 +363,20 @@ test(
   }
 );
 
-// test('multiple selection gets passed out as an array;', function(assert) {
-//   assert.expect(1);
-//   this.set('content', TEDevents);
+test('can create a two way binding on the selection', function(assert) {
+  assert.expect(1);
 
-//   this.actions = { assertChanged: function(selection) {
-//     assert.deepEqual(selection, itemsToSelect);
-//   }};
+  this.set('content', TEDevents);
+  this.set('selection', null);
+  let itemToSelect = TEDevents.findBy('title', 'TED2015');
 
-//   var itemsToSelect = options.rejectBy('code', 'en');
+  this.render(hbs`{{searchable-select
+    content=content
+    on-change=(action (mut selection))}}`);
 
-//   this.render(hbs`{{searchable-select content=content multiple=true on-change=(action "assertChanged")}}`);
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__option:contains("TED2015")').click();
 
-//   this.$('select').val([1,2]);
-//   this.$('select').trigger('change');
+  assert.equal(this.get('selection'), itemToSelect);
 
-// });
-
-// test('can create a two way binding on the selection', function(assert) {
-//   assert.expect(1);
-
-//   this.set('content', TEDevents);
-//   this.set('selection', null);
-//   var itemToSelect = options.findBy('id', 2);
-
-//   this.render(hbs`{{searchable-select content=content on-change=(action (mut selection))}}`);
-
-//   this.$('select').val(2);
-//   this.$('select').trigger('change');
-
-//   assert.equal(this.get('selection'), itemToSelect);
-
-// });
+});

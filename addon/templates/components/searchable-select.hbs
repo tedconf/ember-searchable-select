@@ -1,12 +1,30 @@
 <a href="#"
   class="Searchable-select__label
-    {{if _isShowingMenu 'Searchable-select__label--menu-open'}}"
+    {{if _isShowingMenu 'Searchable-select__label--menu-open'}}
+    {{if multiple 'Searchable-select__label--multiple'}}
+    {{if _hasMultipleSelection 'Searchable-select__label--multiple-selected'}}"
   {{action "toggleMenu"}}>
-  {{#if _selected}}
+
+  {{#if _hasSingleSelection}}
     {{searchable-select-get _selected optionLabelKey}}
-  {{else}}
-    {{prompt}}
   {{/if}}
+
+  {{#if _hasMultipleSelection}}
+    {{#each _selectedArray as |selectedOption|}}
+      <span class="Searchable-select__selected-pill">
+        {{searchable-select-get selectedOption optionLabelKey}}
+        <span
+          class="Searchable-select__selected-pill-clear"
+          {{action "removeOption" selectedOption bubbles=false}}>
+          &times;
+        </span>
+      </span>
+    {{/each}}
+  {{/if}}
+
+  {{#unless _hasSelection}}
+    {{prompt}}
+  {{/unless}}
 </a>
 
 {{#if _isShowingMenu}}
@@ -19,7 +37,6 @@
         key-up="updateSearch"
         bubbles=false}}
     </div>
-
 
     {{#if _isShowingClear}}
       <div class="Searchable-select__clear"
@@ -84,19 +101,20 @@
       {{#each _filteredContent key="@index" as |option|}}
         <li
           class="Searchable-select__option
-          {{if (searchable-select-is-equal option _selected)
+          {{if (searchable-select-contains _selectedArray option)
             'Searchable-select__option--selected'}}
           {{if (searchable-select-get option optionDisabledKey)
             'Searchable-select__option--disabled'}}"
           {{action "selectItem" option bubbles=false}}>
-          {{#if (searchable-select-is-equal option _selected)}}
+
+          {{#if (searchable-select-contains _selectedArray option)}}
             <span class="Searchable-select__icon Searchable-select__icon--check
               Searchable-select__option-indicator--selected">
               &#10003;
             </span>
           {{/if}}
           <span class="Searchable-select__option-label
-            {{if (searchable-select-is-equal option _selected)
+            {{if (searchable-select-contains _selectedArray option)
               'Searchable-select__option-label--selected'}}">
             {{searchable-select-highlight-match
               (searchable-select-get option optionLabelKey)
