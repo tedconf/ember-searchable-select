@@ -380,3 +380,69 @@ test('can create a two way binding on the selection', function(assert) {
   assert.equal(this.get('selection'), itemToSelect);
 
 });
+
+
+// keyboard controls
+const downArrowKeyPress = $.Event( 'keydown', { keyCode: 40 } );
+const upArrowKeyPress = $.Event( 'keydown', { keyCode: 28 } );
+const enterKeyPress = $.Event( 'keydown', { keyCode: 13 } );
+const escKeyPress = $.Event( 'keydown', { keyCode: 27 } );
+const tabKeyPress = $.Event( 'keydown', { keyCode: 9 } );
+
+test('arrow down opens menu when menu is not open and focussed', function(assert) {
+  assert.expect(1);
+  this.render(hbs`{{searchable-select}}`);
+
+  let $label = this.$('.Searchable-select__label');
+
+  $label.focus();
+
+  Ember.run( function() {
+    $label.trigger(downArrowKeyPress);
+  });
+
+  assert.equal(this.$('.Searchable-select__menu').length, 1);
+});
+
+test('can arrow down to go to next option', function(assert) {
+  assert.expect(2);
+
+  this.set('content', TEDevents);
+  this.set('initialSelection', TEDevents.findBy('title', 'TED2015'));
+
+  this.render(hbs`{{searchable-select
+    content=content
+    selected=initialSelection}}`);
+
+  this.$('.Searchable-select__label').click();
+
+  Ember.run( () => {
+    this.$('.Searchable-select__input').trigger(downArrowKeyPress);
+  });
+
+  assert.equal(this.$('.Searchable-select__clear:focus').length, 1);
+
+  Ember.run( () => {
+    this.$('.Searchable-select__clear').trigger(upArrowKeyPress);
+  });
+
+
+  assert.equal(this.$('.Searchable-select__input:focus').length, 1);
+
+});
+
+test('esc key closes the menu', function(assert) {
+  assert.expect(0);
+});
+
+test('selection can be cleared with enter key, when clear button is in focus', function(assert) {
+  assert.expect(0);
+});
+
+test('item can be added with enter key, when add item button is focussed', function(assert) {
+  assert.expect(0);
+});
+
+test('item can be added with enter key, when an option is focussed', function(assert) {
+  assert.expect(0);
+});

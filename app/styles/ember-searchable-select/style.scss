@@ -1,6 +1,6 @@
 $searchable-select-clear-bg: #33CBFA;
 $searchable-select-clear-color: #fff;
-$searchable-select-add-bg: #dedede;
+$searchable-select-add-bg: #e2e2e2;
 $searchable-select-item-bg--selected: #eef6fa;
 $searchable-select-item-bg--hover: #f6f6f6;
 $searchable-select-no-results-color: #9a9a9a;
@@ -113,6 +113,15 @@ $searchable-select-spacer-horizontal: 1em;
     cursor: pointer;
     background: $searchable-select-clear-bg;
     color: $searchable-select-clear-color;
+
+    &:hover {
+      background: darken($searchable-select-clear-bg, 5);
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: underline;
+    }
   }
 
   &__info {
@@ -124,8 +133,17 @@ $searchable-select-spacer-horizontal: 1em;
     position: relative;
     padding: 0.8em $searchable-select-spacer-horizontal;
     line-height: 1;
-    background: #e2e2e2;
+    background:$searchable-select-add-bg;
     cursor: pointer;
+
+    &:hover {
+      background: darken($searchable-select-add-bg, 5);
+    }
+
+    &:focus {
+      outline: none;
+      text-decoration: underline;
+    }
   }
 
   &__loader {
@@ -162,7 +180,12 @@ $searchable-select-spacer-horizontal: 1em;
     position: relative;
 
     &--selected{background: $searchable-select-item-bg--selected;}
-    &:hover {background: $searchable-select-item-bg--hover;}
+
+    &:hover,
+    &:focus {
+      background: $searchable-select-item-bg--hover;
+      outline: none;
+    }
 
     &--disabled {
       color: #8C8C8C;
