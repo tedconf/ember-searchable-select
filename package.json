@@ -1,6 +1,6 @@
 {
   "name": "ember-searchable-select",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Data-down, actions up select-like menu with searching and filtering capabilities.",
   "directories": {
     "doc": "doc",
