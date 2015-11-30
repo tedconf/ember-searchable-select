@@ -189,6 +189,13 @@ export default Ember.Component.extend({
     } else if (e.keyCode === 27 || e.keyCode === 9) {
       // escape key or tab key
       this.send('hideMenu');
+    } else if (e.keyCode === 13) {
+      // enter key
+      let action = $(e.target).attr('data-enter-key-action');
+
+      if (action) {
+        this.send(action);
+      }
     }
   },
 
@@ -264,22 +271,6 @@ export default Ember.Component.extend({
     addNew() {
       this['on-add'].call(this, this.get('_searchText'));
       this.send('hideMenu');
-    },
-    selectItemWithEnter(option) {
-      if (event.keyCode === 13) {
-        this.send('selectItem', option);
-      }
-    },
-    clearWithKeyboard(target) {
-      debugger;
-      if (event.keyCode === 13 ) {
-        this.send('clear');
-      }
-    },
-    addWithKeyboard() {
-      if (event.keyCode === 13 ) {
-        this.send('addNew');
-      }
     },
     noop() {
       // need an action to able to attach bubbles:false to an elem

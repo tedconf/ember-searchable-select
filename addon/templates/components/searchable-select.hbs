@@ -42,8 +42,8 @@
     {{#if _isShowingClear}}
       <div class="Searchable-select__clear"
         tabindex=-1
-        {{action "clear" bubbles=false}}
-        {{action "clearWithKeyboard" on="keyDown" value="target"}}>
+        data-enter-key-action="clear"
+        {{action "clear" bubbles=false}}>
         <span class="Searchable-select__icon Searchable-select__icon--clear">
           &times;
         </span>
@@ -54,8 +54,8 @@
     {{#if _isShowingAddNew}}
     <div class="Searchable-select__add-new"
       tabindex=-1
-      {{action "addNew" bubbles=false}}
-      {{action "addWithKeyboard" on="keyDown"}}>
+      data-enter-key-action="addNew"
+      {{action "addNew" bubbles=false}}>
       {{addLabel}} <em>{{_searchText}}</em>
     </div>
     {{/if}}
@@ -103,7 +103,16 @@
 
     {{#if _hasResults}}
     <ul class="Searchable-select__options-list">
-      {{#each _filteredContent key="@index" as |option|}}
+      {{#each _filteredContent key="id" as |option|}}
+        {{searchable-select-option
+          option=option
+          selectedArray=_selectedArray
+          searchText=_searchText
+          optionLabelKey=optionLabelKey
+          optionDisabledKey=optionDisabledKey
+          select-item=(action "selectItem")
+          }}
+{{!--
         <li
           tabindex="{{unless (searchable-select-get option optionDisabledKey) -1}}"
           class="Searchable-select__option
@@ -112,7 +121,7 @@
           {{if (searchable-select-get option optionDisabledKey)
             'Searchable-select__option--disabled'}}"
           {{action "selectItem" option bubbles=false}}
-          {{action "selectItemWithEnter" option on="keyDown"}}>
+          {{action "selectItemWithKeyboard" option on="keyDown"}}>
 
           {{#if (searchable-select-contains _selectedArray option)}}
             <span class="Searchable-select__icon Searchable-select__icon--check
@@ -128,7 +137,7 @@
               _searchText
             }}
           </span>
-        </li>
+        </li> --}}
       {{/each}}
     </ul>
     {{/if}}
