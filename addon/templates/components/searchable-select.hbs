@@ -35,11 +35,14 @@
         type="text"
         placeholder=searchPrompt
         key-up="updateSearch"
+        tabindex=-1
         bubbles=false}}
     </div>
 
     {{#if _isShowingClear}}
       <div class="Searchable-select__clear"
+        tabindex=-1
+        data-enter-key-action="clear"
         {{action "clear" bubbles=false}}>
         <span class="Searchable-select__icon Searchable-select__icon--clear">
           &times;
@@ -50,7 +53,9 @@
 
     {{#if _isShowingAddNew}}
     <div class="Searchable-select__add-new"
-    {{action "addNew" bubbles=false}}>
+      tabindex=-1
+      data-enter-key-action="addNew"
+      {{action "addNew" bubbles=false}}>
       {{addLabel}} <em>{{_searchText}}</em>
     </div>
     {{/if}}
@@ -98,14 +103,25 @@
 
     {{#if _hasResults}}
     <ul class="Searchable-select__options-list">
-      {{#each _filteredContent key="@index" as |option|}}
+      {{#each _filteredContent key="id" as |option|}}
+        {{searchable-select-option
+          option=option
+          selectedArray=_selectedArray
+          searchText=_searchText
+          optionLabelKey=optionLabelKey
+          optionDisabledKey=optionDisabledKey
+          select-item=(action "selectItem")
+          }}
+{{!--
         <li
+          tabindex="{{unless (searchable-select-get option optionDisabledKey) -1}}"
           class="Searchable-select__option
           {{if (searchable-select-contains _selectedArray option)
             'Searchable-select__option--selected'}}
           {{if (searchable-select-get option optionDisabledKey)
             'Searchable-select__option--disabled'}}"
-          {{action "selectItem" option bubbles=false}}>
+          {{action "selectItem" option bubbles=false}}
+          {{action "selectItemWithKeyboard" option on="keyDown"}}>
 
           {{#if (searchable-select-contains _selectedArray option)}}
             <span class="Searchable-select__icon Searchable-select__icon--check
@@ -121,7 +137,7 @@
               _searchText
             }}
           </span>
-        </li>
+        </li> --}}
       {{/each}}
     </ul>
     {{/if}}

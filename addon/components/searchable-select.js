@@ -143,6 +143,14 @@ export default Ember.Component.extend({
 
   _hasNoMatchedKeys: Ember.computed.not('_hasMatchedKey'),
 
+  _setup: Ember.on('didInsertElement', function() {
+    // keyboard controls
+
+    this.$().on('keydown', e => {
+      this._handleKeyboardControls(e);
+    });
+  }),
+
   _teardown: Ember.on('willDestroyElement', function() {
     this._unbindOutsideClicks();
   }),
@@ -151,12 +159,44 @@ export default Ember.Component.extend({
     let component = this;
     $(window).one(`click.${component.elementId}`, function() {
       component.send('hideMenu');
+      component.$('.Searchable-select__label').blur();
     });
   },
 
   _unbindOutsideClicks() {
     let component = this;
     $(window).off(`click.${component.elementId}`);
+  },
+
+  _handleKeyboardControls(e) {
+    let $focussable = this.$('[tabindex]');
+    let i = $focussable.index(e.target);
+
+    if (e.keyCode === 40) {
+      // down arrow
+      e.preventDefault();
+      $focussable.eq(i + 1).focus();
+
+      if ($(e.target).is('.Searchable-select__label')) {
+        this.send('showMenu');
+      }
+    } else if (e.keyCode === 38) {
+      // up arrow
+      e.preventDefault();
+      if (i > 0) {
+        $focussable.eq(i - 1).focus();
+      }
+    } else if (e.keyCode === 27 || e.keyCode === 9) {
+      // escape key or tab key
+      this.send('hideMenu');
+    } else if (e.keyCode === 13) {
+      // enter key
+      let action = $(e.target).attr('data-enter-key-action');
+
+      if (action) {
+        this.send(action);
+      }
+    }
   },
 
   _toggleSelection(item) {
@@ -220,6 +260,7 @@ export default Ember.Component.extend({
       this.set('_isShowingMenu', false);
       this._unbindOutsideClicks();
       this.set('_searchText', '');
+      this.$('.Searchable-select__label').focus();
     },
     clear() {
       this.send('selectItem', null);
