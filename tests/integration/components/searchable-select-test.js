@@ -13,42 +13,49 @@ const TEDevents = Ember.A([
     id: 1,
     title: 'TED2015',
     longTitle: 'TED2015: Truth and Dare',
+    year: 2015,
     keywords: '',
     isTEDxEvent: false
   },
   {
     id: 2,
     title: 'TEDxNASA',
+    year: 2015,
     keywords: '',
     isTEDxEvent: true
   },
   {
     id: 3,
     title: 'TED2014',
+    year: 2014,
     keywords: '',
     isTEDxEvent: false
   },
   {
     id: 4,
     title: 'TEDGlobal 2014',
+    year: 2014,
     keywords: '',
     isTEDxEvent: false
   },
   {
     id: 5,
     title: 'TEDxNewYork',
+    year: 2014,
     keywords: 'NYC',
     isTEDxEvent: true
   },
   {
     id: 6,
     title: 'TEDGlobal 2013',
+    year: 2013,
     keywords: '',
     isTEDxEvent: false
   },
   {
     id: 7,
     title: 'TED2013',
+    year: 2013,
     keywords: '',
     isTEDxEvent: false
   }
@@ -166,6 +173,21 @@ test('can sort the options by a provided key', function(assert) {
   assert.equal($options.eq(0).text().trim(), 'TED2013');
   assert.equal($options.eq(1).text().trim(), 'TED2014');
   assert.equal($options.eq(2).text().trim(), 'TED2015');
+});
+
+test('can sort the options by a multiple provided keys', function(assert) {
+  assert.expect(4);
+  this.set('content', TEDevents);
+  this.set('sortBy', 'year:desc,title');
+
+  this.render(hbs`{{searchable-select content=content sortBy=sortBy}}`);
+  this.$('.Searchable-select__label').click();
+
+  let $options = this.$('.Searchable-select__option');
+  assert.equal($options.eq(0).text().trim(), 'TED2015');
+  assert.equal($options.eq(1).text().trim(), 'TEDxNASA');
+  assert.equal($options.eq(2).text().trim(), 'TED2014');
+  assert.equal($options.eq(3).text().trim(), 'TEDGlobal 2014');
 });
 
 test('can type to refine the list of options', function(assert) {

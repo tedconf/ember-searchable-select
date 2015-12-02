@@ -8,7 +8,7 @@
     on-change                 | Specify your own named action to trigger when the selection changes. eg. <code>(action "update")</code> <br> For single selection (default behaviour), the selected object is sent as an argument. For multiple selections, an array of options is sent. | Ember action  | Ember.K
     optionLabelKey            | The item property to use as the visible label in the menu.   | string  | 'title'
     optionDisabledKey         | Provide a boolean item property to use a flag for disabling menu items. [optional] | string, null  | null
-    sortBy                    | The item property to use for a sort key. Sorting is disabled when set to null. | string, null   | null
+    sortBy                    | The item property to use for a sort key. Accepts a single property or a comma separated list. Also allows the use of the `:desc` qualifier for reversing sort order. Sorting is disabled when set to null. <br>eg. `sortBy:title`, `sortBy="firstName,lastName"`, `sortBy="year:desc"` | string, null  | null
     limitSearchToWordBoundary | When true, search will only match the beginning of words     | boolean     | true
     multiple                  | Set to true to enable multiple selection. You must use an array for `selected` in mutli-select mode. | boolean | false
     prompt                    | Prompt text for the main input.    | string    | 'Select an option'

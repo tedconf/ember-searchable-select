@@ -50,5 +50,44 @@ export default Ember.Controller.extend({
       id: 2,
       tag: 'inspiring'
     }
+  ]),
+
+  TEDspeakers: Ember.A([
+    {
+      id: 1,
+      firstName: 'Ken',
+      lastName: 'Jennings',
+      fullName: 'Ken Jennings'
+    },
+    {
+      id: 2,
+      firstName: 'Amy',
+      lastName: 'Cuddy',
+      fullName: 'Amy Cuddy'
+    },
+    {
+      id: 3,
+      firstName: 'Ken',
+      lastName: 'Robinson',
+      fullName: 'Ken Robinson'
+    },
+    {
+      id: 4,
+      firstName: 'Susan',
+      lastName: 'Cain',
+      fullName: 'Susan Cain'
+    },
+    {
+      id: 5,
+      firstName: 'Kelly',
+      lastName: 'McGonigal',
+      fullName: 'Kelly McGonigal'
+    },
+    {
+      id: 6,
+      firstName: 'Amy',
+      lastName: 'Webb',
+      fullName: 'Amy Webb'
+    }
   ])
 });

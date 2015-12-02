@@ -1,0 +1,26 @@
+{{#ember-markdown-section}}
+### Sorting the list
+
+You can sort the list by a single property (as seen in the examples above) or multiple comma-separated properties as shown here. You can also use the `:desc` qualifier to reverse sort order on a property, similar to [Ember.computed.sort](http://emberjs.com/api/classes/Ember.computed.html#method_sort).
+
+{{/ember-markdown-section}}
+
+<br>
+  <div class="row">
+  <div class="col-md-6">
+    {{code-snippet name="example-sort.hbs"}}
+  </div>
+  <div class="col-md-6">
+
+  {{!-- BEGIN-SNIPPET example-sort --}}
+  {{searchable-select
+    content=TEDspeakers
+    sortBy="firstName,lastName:desc"
+    optionLabelKey="fullName"
+    on-change=(action "update")}}
+
+  <p>Set by Searchable: {{setBySearchable.fullName}}</p>
+  {{!-- END-SNIPPET --}}
+
+  </div>
+</div>
