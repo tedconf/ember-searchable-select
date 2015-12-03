@@ -199,7 +199,7 @@ test('multi-select is not two-way bound', function(assert) {
   this.set('initialSelection',  initialSelection);
 
   this.actions = {
-    assertChanged(selection) {
+    assertChanged() {
       assert.equal(initialSelection[0].title, 'TED2014');
     }
   };
