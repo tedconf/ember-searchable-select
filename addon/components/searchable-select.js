@@ -267,6 +267,7 @@ export default Ember.Component.extend({
     },
     removeOption(option) {
       this.get('_selectedArray').removeObject(option);
+      this['on-change'].call(this, this.get('_selectedArray'));
     },
     addNew() {
       this['on-add'].call(this, this.get('_searchText'));

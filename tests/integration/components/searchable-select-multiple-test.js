@@ -105,14 +105,21 @@ test('mutli-selected options display as pills', function(assert) {
 });
 
 test('can remove selection with pill clear button', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   this.set('content', TEDevents);
   this.set('initialSelection',  dummyEventSelection);
+
+  this.actions = {
+    assertChanged(selection) {
+      assert.equal(selection.length, 1);
+    }
+  };
 
   this.render(hbs`{{searchable-select
     content=content
     multiple=true
-    selected=initialSelection}}`);
+    selected=initialSelection
+    on-change=(action "assertChanged")}}`);
 
   this.$('.Searchable-select__selected-pill:contains("TED2014")')
     .find('.Searchable-select__selected-pill-clear')
