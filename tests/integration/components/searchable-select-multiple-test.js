@@ -62,7 +62,7 @@ test('can use multi-select when multiple is true', function(assert) {
   assert.expect(1);
   this.set('content', TEDevents);
 
-  this.set('initialSelection',  TEDevents.findBy('title', 'TED2014'));
+  this.set('initialSelection',  [TEDevents.findBy('title', 'TED2014')]);
 
   let expectedSelection = dummyEventSelection;
 
@@ -188,4 +188,28 @@ test('can toggle selected state of a multi-select option', function(assert) {
   assert.equal(this.$('.Searchable-select__option-label--selected').length, 0,
     'item is no longer highlighted');
 
+});
+
+test('multi-select is not two-way bound', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+
+  let initialSelection = [TEDevents.findBy('title', 'TED2014')];
+
+  this.set('initialSelection',  initialSelection);
+
+  this.actions = {
+    assertChanged(selection) {
+      assert.equal(initialSelection[0].title, 'TED2014');
+    }
+  };
+
+  this.render(hbs`{{searchable-select
+    content=content
+    multiple=true
+    selected=initialSelection
+    on-change=(action "assertChanged")}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__option:contains("TED2013")').click();
 });

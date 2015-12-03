@@ -29,7 +29,7 @@ export default Ember.Component.extend({
 
   _searchText: '',
   _isShowingMenu: false,
-  _hasSelection: Ember.computed.alias('_selectedArray.length'),
+  _hasSelection: Ember.computed.notEmpty('_selected'),
   _isShowingClear: Ember.computed.and('isClearable', '_hasSelection'),
   _hasNoResults: Ember.computed.empty('_filteredContent'),
   _hasResults: Ember.computed.not('_hasNoResults'),
@@ -55,22 +55,18 @@ export default Ember.Component.extend({
   // changes after the prop gets set internally.
   _selected: Ember.computed('selected', {
     get() {
+      if (this.get('multiple') && !this.get('selected')) {
+        // coerce null multiple selections to an empty array
+        return Ember.A([]);
+      } else if (this.get('multiple') && !Array.isArray(this.get('selected'))) {
+        throw new Error('Searchable select: passed in multiple selection must be an array');
+      } else {
+        return this.get('selected');
+      }
       return this.get('selected');
     },
     set(key, value) {
       return value;
-    }
-  }),
-
-  // turn single selection values into an array so we can work with
-  // both single and multiple selections consistently in the template
-  _selectedArray: Ember.computed('_selected', function() {
-    let _selected = this.get('_selected');
-
-    if (_selected) {
-      return Array.isArray(_selected) ? Ember.A(_selected) : Ember.A([_selected]);
-    } else {
-      return Ember.A([]);
     }
   }),
 
@@ -200,17 +196,24 @@ export default Ember.Component.extend({
   },
 
   _toggleSelection(item) {
-    let selectedOptions = this.get('_selectedArray');
-
     if (item === null) {
-      selectedOptions.clear();
-    } else if (selectedOptions.contains(item)) {
-      selectedOptions.removeObject(item);
+      this.set('_selected', Ember.A([]));
+    } else if (Ember.A(this.get('_selected')).contains(item)) {
+      this.removeFromSelected(item);
     } else {
-      selectedOptions.addObject(item);
+      this.addToSelected(item);
     }
+  },
 
-    return selectedOptions;
+  // non-mutating adding and removing to/from the _selected array
+  removeFromSelected(item) {
+    let selected = this.get('_selected');
+    let i = selected.indexOf(item);
+    let newSelection = selected.slice(0, i).concat(selected.slice(i + 1));
+    this.set('_selected', Ember.A(newSelection));
+  },
+  addToSelected(item) {
+    this.set('_selected', Ember.A(this.get('_selected').concat([item])));
   },
 
   actions: {
@@ -228,13 +231,13 @@ export default Ember.Component.extend({
 
       if (this.get('multiple')) {
         // add or remove item from selection
-        let newSelection = this._toggleSelection(item);
-        this['on-change'].call(this, newSelection);
+        this._toggleSelection(item);
       } else {
         // replace selection
         this.set('_selected', item);
-        this['on-change'].call(this, item);
       }
+
+      this['on-change'].call(this, this.get('_selected'));
       this.send('hideMenu');
     },
     toggleMenu() {
@@ -266,8 +269,8 @@ export default Ember.Component.extend({
       this.send('selectItem', null);
     },
     removeOption(option) {
-      this.get('_selectedArray').removeObject(option);
-      this['on-change'].call(this, this.get('_selectedArray'));
+      this.removeFromSelected(option);
+      this['on-change'].call(this, this.get('_selected'));
     },
     addNew() {
       this['on-add'].call(this, this.get('_searchText'));

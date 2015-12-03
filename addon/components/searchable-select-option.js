@@ -14,7 +14,7 @@ export default Ember.Component.extend({
   option: null,
   optionLabelKey: 'title',
   optionDisabledKey: null,
-  selectedArray: Ember.A([]),
+  selected: null,
   searchText: '',
 
   isDisabled: Ember.computed('option', 'optionDisabledKey', function() {
@@ -22,8 +22,12 @@ export default Ember.Component.extend({
       return Ember.get(this.get('option'), this.get('optionDisabledKey'));
     }
   }),
-  isSelected: Ember.computed('option', 'selectedArray', function() {
-    return this.get('selectedArray').contains(this.get('option'));
+  isSelected: Ember.computed('option', 'selected', function() {
+    if (Array.isArray(this.get('selected'))) {
+      return Ember.A(this.get('selected')).contains(this.get('option'));
+    } else {
+      return this.get('selected') === this.get('option');
+    }
   }),
   tabindex: Ember.computed('isDisabled', function() {
     if (!this.get('isDisabled')) {

@@ -10,7 +10,7 @@
   {{/if}}
 
   {{#if _hasMultipleSelection}}
-    {{#each _selectedArray as |selectedOption|}}
+    {{#each _selected as |selectedOption|}}
       <span class="Searchable-select__selected-pill">
         {{searchable-select-get selectedOption optionLabelKey}}
         <span
@@ -106,12 +106,11 @@
       {{#each _filteredContent key="id" as |option|}}
         {{searchable-select-option
           option=option
-          selectedArray=_selectedArray
+          selected=_selected
           searchText=_searchText
           optionLabelKey=optionLabelKey
           optionDisabledKey=optionDisabledKey
-          select-item=(action "selectItem")
-          }}
+          select-item=(action "selectItem")}}
       {{/each}}
     </ul>
     {{/if}}
