@@ -1,6 +1,6 @@
 import Ember from 'ember';
 
-// BEGIN-SNIPPET example-default
+// BEGIN-SNIPPET multiple
 export default Ember.Component.extend({
   classNames: 'Example',
   setBySearchable: null,
