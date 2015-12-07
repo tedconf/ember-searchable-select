@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 export function searchableSelectHighlightMatch([text, matchText]) {
-  if (!matchText) {
+  if (!matchText || !text) {
     return text;
   }
 

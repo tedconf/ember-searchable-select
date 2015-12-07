@@ -103,7 +103,7 @@
 
     {{#if _hasResults}}
     <ul class="Searchable-select__options-list">
-      {{#each _filteredContent key="id" as |option|}}
+      {{#each _filteredContent as |option|}}
         {{searchable-select-option
           option=option
           selected=_selected
