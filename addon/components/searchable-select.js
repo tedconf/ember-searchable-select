@@ -53,7 +53,10 @@ export default Ember.Component.extend({
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
   // changes after the prop gets set internally.
-  _selected: Ember.computed('selected.[]', {
+
+  // TODO [brenna]: refactor into two CP's, one for single _selected,
+  // one for _multiselected
+  _selected: Ember.computed('selected', 'selected.[]', {
     get() {
       if (this.get('multiple') && !this.get('selected')) {
         // coerce null multiple selections to an empty array
