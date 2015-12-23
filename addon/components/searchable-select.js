@@ -5,7 +5,10 @@ import layout from '../templates/components/searchable-select';
 export default Ember.Component.extend({
   layout,
   classNames: ['Searchable-select'],
-  classNameBindings: ['_isShowingMenu:Searchable-select--menu-open'],
+  classNameBindings: [
+    '_isShowingMenu:Searchable-select--menu-open',
+    'multiple:Searchable-select--multiple'
+  ],
 
   content: null,
   selected: null,

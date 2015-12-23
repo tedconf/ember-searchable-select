@@ -59,7 +59,7 @@ const dummyEventSelection = TEDevents.filter(event => {
 });
 
 test('can use multi-select when multiple is true', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
   this.set('content', TEDevents);
 
   this.set('initialSelection',  [TEDevents.findBy('title', 'TED2014')]);
@@ -82,6 +82,11 @@ test('can use multi-select when multiple is true', function(assert) {
 
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__option:contains("TED2013")').click();
+
+  assert.equal(
+    $('.Searchable-select--multiple').length,
+    1,
+    'component class has "--multiple" modifier');
 });
 
 test('mutli-selected options display as pills', function(assert) {
