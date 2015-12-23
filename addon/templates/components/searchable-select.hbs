@@ -6,13 +6,17 @@
   {{action "toggleMenu"}}>
 
   {{#if _hasSingleSelection}}
-    {{searchable-select-get _selected optionLabelKey}}
+    <span class="Searchable-select__selected-label">
+      {{searchable-select-get _selected optionLabelKey}}
+    </span>
   {{/if}}
 
   {{#if _hasMultipleSelection}}
     {{#each _selected as |selectedOption|}}
       <span class="Searchable-select__selected-pill">
-        {{searchable-select-get selectedOption optionLabelKey}}
+        <span class="Searchable-select__selected-pill-text">
+          {{searchable-select-get selectedOption optionLabelKey}}
+        </span>
         <span
           class="Searchable-select__selected-pill-clear"
           {{action "removeOption" selectedOption bubbles=false}}>
@@ -23,7 +27,7 @@
   {{/if}}
 
   {{#unless _hasSelection}}
-    {{prompt}}
+    <span class="Searchable-select__prompt">{{prompt}}</span>
   {{/unless}}
 </a>
 
