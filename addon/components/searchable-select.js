@@ -29,6 +29,7 @@ export default Ember.Component.extend({
 
   isLoading: false,
   loadingMessage: 'Searching...',
+  optionTemplate: 'option-template',
 
   _searchText: '',
   _isShowingMenu: false,
