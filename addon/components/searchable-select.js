@@ -17,6 +17,7 @@ export default Ember.Component.extend({
   sortBy: null,
   limitSearchToWordBoundary: false,
   multiple: false,
+  closeOnSelection: true,
 
   prompt: 'Select an option',
   searchPrompt: 'Type to search',
@@ -244,7 +245,10 @@ export default Ember.Component.extend({
       }
 
       this['on-change'].call(this, this.get('_selected'));
-      this.send('hideMenu');
+
+      if (this.get('closeOnSelection')) {
+        this.send('hideMenu');
+      }
     },
     toggleMenu() {
       if (this.get('_isShowingMenu')) {

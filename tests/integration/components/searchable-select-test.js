@@ -247,6 +247,24 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
 });
 
+test('can disable the menu from closing after a selection is made', function(assert) {
+  assert.expect(1);
+  this.set('content', TEDevents);
+
+  this.actions = {
+    assertMenuOpen() {
+      assert.equal(this.$('.Searchable-select__options-list').length, 1);
+    }
+  };
+
+  this.render(hbs`{{searchable-select
+    content=content
+    on-change=(action "assertMenuOpen")}}`);
+
+  this.$('.Searchable-select__label').click();
+  this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
+});
+
 // TODO: get this test working properly, works in demo app,
 // test('filtered list should reset after a selection is made', function(assert) {
 //   assert.expect(1);
