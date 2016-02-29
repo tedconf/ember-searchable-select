@@ -160,9 +160,12 @@ export default Ember.Component.extend({
 
   _bindOutsideClicks() {
     let component = this;
-    $(window).one(`click.${component.elementId}`, function() {
-      component.send('hideMenu');
-      component.$('.Searchable-select__label').blur();
+    let componentElem = this.get('element');
+    $(window).on(`click.${component.elementId}`, function(e) {
+      if (!$.contains(componentElem, e.target)) {
+        component.send('hideMenu');
+        component.$('.Searchable-select__label').blur();
+      }
     });
   },
 
@@ -284,7 +287,9 @@ export default Ember.Component.extend({
     },
     addNew() {
       this['on-add'].call(this, this.get('_searchText'));
-      this.send('hideMenu');
+      if (this.get('closeOnSelection')) {
+        this.send('hideMenu');
+      }
     },
     noop() {
       // need an action to able to attach bubbles:false to an elem

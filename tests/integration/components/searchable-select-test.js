@@ -253,12 +253,13 @@ test('can disable the menu from closing after a selection is made', function(ass
 
   this.actions = {
     assertMenuOpen() {
-      assert.equal(this.$('.Searchable-select__options-list').length, 1);
+      assert.equal(this.$('.Searchable-select--menu-open').length, 1);
     }
   };
 
   this.render(hbs`{{searchable-select
     content=content
+    closeOnSelection=false
     on-change=(action "assertMenuOpen")}}`);
 
   this.$('.Searchable-select__label').click();
