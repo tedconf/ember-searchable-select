@@ -11,6 +11,7 @@
     sortBy                    | The item property to use for a sort key. Accepts a single property or a comma separated list. Also allows the use of the `:desc` qualifier for reversing sort order. Sorting is disabled when set to null. <br>eg. `sortBy:title`, `sortBy="firstName,lastName"`, `sortBy="year:desc"` | string, null  | null
     limitSearchToWordBoundary | When true, search will only match the beginning of words     | boolean     | true
     multiple                  | Set to true to enable multiple selection. You must use an array for `selected` in mutli-select mode. | boolean | false
+    closeOnSelection          | Set to false to disabled automatically closing the menu once a selection is made. | boolean | true 
     prompt                    | Prompt text for the main input.    | string    | 'Select an option'
     searchPrompt              | Prompt text for the search input.    | string    | 'Type to search'
     noResultsMessage          | Message to display if a filter produces no results    | string    | 'No matching results'
