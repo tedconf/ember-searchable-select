@@ -22,7 +22,7 @@ export default Ember.Component.extend({
       return Ember.get(this.get('option'), this.get('optionDisabledKey'));
     }
   }),
-  isSelected: Ember.computed('option', 'selected', function() {
+  isSelected: Ember.computed('option', 'selected', 'selected.[]', function() {
     if (Array.isArray(this.get('selected'))) {
       return Ember.A(this.get('selected')).contains(this.get('option'));
     } else {
