@@ -228,7 +228,7 @@ test(
 );
 
 test('selection gets passed out with the on-change action', function(assert) {
-  assert.expect(1);
+  assert.expect(2);
   this.set('content', TEDevents);
 
   let itemToSelect = TEDevents.findBy('title', 'TEDGlobal 2014');
@@ -236,12 +236,16 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.actions = {
     assertChanged(selection) {
       assert.deepEqual(selection, itemToSelect);
+    },
+    assertClosed() {
+      assert.ok('action dispatched for menu close event');
     }
   };
 
   this.render(hbs`{{searchable-select
     content=content
-    on-change=(action "assertChanged")}}`);
+    on-change=(action "assertChanged")
+    on-close=(action "assertClosed")}}`);
 
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
@@ -264,6 +268,7 @@ test('can disable the menu from closing after a selection is made', function(ass
 
   this.$('.Searchable-select__label').click();
   this.$('.Searchable-select__option:contains("TEDGlobal 2014")').click();
+
 });
 
 // TODO: get this test working properly, works in demo app,

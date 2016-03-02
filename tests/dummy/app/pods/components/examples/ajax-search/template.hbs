@@ -18,7 +18,8 @@
     content=filteredTEDevents
     sortBy="title"
     on-change=(action "updateSelection")
-    on-search=(action "updateSearch")}}
+    on-search=(action "updateSearch")
+    on-close=(action "clearResultsList")}}
 
   <p>Set by Searchable: {{setBySearchable.title}}</p>
   {{!-- END-SNIPPET --}}

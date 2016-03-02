@@ -19,9 +19,11 @@
     clearLabel                | Text to display beside the clear button when `isClearable` is true. | string    | 'Clear selection'
     on-add                    | Allow unfound items to be added to the content array by specifying your own named action. eg. `(action "addNew")` The new item name is sent as an argument. You must handle adding the item to the content array and selecting the new item outside the component. | Ember action  | Ember.K
     addLabel                  | Text to show before the new text to be added when an `on-add` action is provided. | string    | 'Add'
-    on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is provided.     | Ember action    | Ember.K
+    on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is 
+    provided.     | Ember action    | Ember.K
     isLoading                 | Pass in your own boolean flag to toggle visibility of a loading animation.     | boolean     | false
     loadingMessage            | Text to displayed beside the loading animation when `isLoading` is true.    | string    | 'Searching...'
+    on-close                  | Specify your own named action to trigger when the menu closes. Useful hook for clearing out content that was previously passed in with AJAX. | Ember action | Ember.K
 
 
     {{/ember-markdown-section}}

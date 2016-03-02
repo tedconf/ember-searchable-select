@@ -26,6 +26,9 @@ export default Ember.Component.extend({
       });
 
       this.set('filteredTEDevents', Ember.A(matches));
+    },
+    clearResultsList() {
+      this.set('filteredTEDevents', null);
     }
   }
 });

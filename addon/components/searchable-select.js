@@ -53,6 +53,7 @@ export default Ember.Component.extend({
   'on-change': Ember.K,
   'on-add': Ember.K,
   'on-search': Ember.K,
+  'on-close': Ember.K,
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -277,6 +278,7 @@ export default Ember.Component.extend({
       this._unbindOutsideClicks();
       this.set('_searchText', '');
       this.$('.Searchable-select__label').focus();
+      this['on-close'].call(this);
     },
     clear() {
       this.send('selectItem', null);
