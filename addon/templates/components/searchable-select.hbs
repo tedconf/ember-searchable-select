@@ -33,15 +33,17 @@
 
 {{#if _isShowingMenu}}
   <div class="Searchable-select__menu">
-    <div class="Searchable-select__search" {{action "noop" bubbles=false}}>
-      {{input
-        class="Searchable-select__input"
-        type="text"
-        placeholder=searchPrompt
-        key-up="updateSearch"
-        tabindex=-1
-        bubbles=false}}
-    </div>
+    {{#unless _hideSearch}}
+      <div class="Searchable-select__search" {{action "noop" bubbles=false}}>
+          {{input
+          class="Searchable-select__input"
+          type="text"
+          placeholder=searchPrompt
+          key-up="updateSearch"
+          tabindex=-1
+          bubbles=false}}
+      </div>
+    {{/unless}}
 
     {{#if _isShowingClear}}
       <div class="Searchable-select__clear"
