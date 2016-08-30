@@ -46,15 +46,17 @@
     {{/unless}}
 
     {{#if _isShowingClear}}
-      <div class="Searchable-select__clear"
-        tabindex=-1
-        data-enter-key-action="clear"
-        {{action "clear" bubbles=false}}>
-        <span class="Searchable-select__icon Searchable-select__icon--clear">
-          &times;
-        </span>
-        {{clearLabel}}
-      </div>
+      {{#unless _hideClear}}
+          <div class="Searchable-select__clear"
+               tabindex=-1
+               data-enter-key-action="clear"
+              {{action "clear" bubbles=false}}>
+      <span class="Searchable-select__icon Searchable-select__icon--clear">
+        &times;
+      </span>
+              {{clearLabel}}
+          </div>
+      {{/unless}}
     {{/if}}
 
     {{#if _isShowingAddNew}}

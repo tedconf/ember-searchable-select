@@ -82,6 +82,10 @@ export default Ember.Component.extend({
     return this.get('hideSearch');
   }),
 
+  _hideClear: Ember.computed('hideClear', function() {
+    return this.get('hideClear');
+  }),
+
   _sortArray: Ember.computed('sortBy', function() {
     if (this.get('sortBy')) {
       return this.get('sortBy').replace(' ', '').split(',');
