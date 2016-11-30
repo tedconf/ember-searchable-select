@@ -1,5 +1,7 @@
 # Ember-searchable-select
 
+> This addon is prepared for internal use at TED. We're happy to share our code as open-source, but be aware that it may not be maintianed for broader community use.
+
 ## Installation
 
 To get started, install this addon,  [ember-cli-sass](https://github.com/aexmachina/ember-cli-sass), and include the ember-searchable-select styles in your app.scss.
