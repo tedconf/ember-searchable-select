@@ -50,10 +50,10 @@ export default Ember.Component.extend({
     '_hasNoResults',
     '_isNotLoading'),
 
-  'on-change': Ember.K,
-  'on-add': Ember.K,
-  'on-search': Ember.K,
-  'on-close': Ember.K,
+  'on-change'() {},
+  'on-add'() {},
+  'on-search'() {},
+  'on-close'() {},
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -88,11 +88,11 @@ export default Ember.Component.extend({
   _sortedContent: Ember.computed.sort('content', '_sortArray'),
 
   _canAddNew: Ember.computed('on-add', function() {
-    return this.get('on-add') !== Ember.K;
+    return this.get('on-add') !== function() {};
   }),
 
   _isFilterActive: Ember.computed('on-search', function() {
-    return this.get('on-search') === Ember.K;
+    return this.get('on-search') === function() {};
   }),
 
   _filterRegex: Ember.computed(
