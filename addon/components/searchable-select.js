@@ -85,7 +85,7 @@ export default Ember.Component.extend({
     return [];
   }),
 
-  _sortedContent: Ember.computed.sort('content', '_sortArray'),
+  _sortedContent: Ember.computed.sort('content', '_sortArray').property('content'),
 
   _canAddNew: Ember.computed('on-add', function() {
     return this.get('on-add') !== Ember.K;
