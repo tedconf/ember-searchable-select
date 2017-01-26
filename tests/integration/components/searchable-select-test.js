@@ -110,7 +110,8 @@ test(
       'item labels should default to "title" value');
 
     assert.equal($options.is('.Searchable-select__option--selected'), false,
-      'no options should be selected by ault');
+      'no options should be selected by default');
+
   }
 );
 
@@ -191,7 +192,7 @@ test('can sort the options by a multiple provided keys', function(assert) {
 });
 
 test('can type to refine the list of options', function(assert) {
-  assert.expect(3);
+  assert.expect(4);
   this.set('content', TEDevents);
 
   this.render(hbs`{{searchable-select content=content}}`);
@@ -204,11 +205,15 @@ test('can type to refine the list of options', function(assert) {
     '2013',
     'search string is highlighted');
 
+  assert.equal(this.$('.Searchable-select__add-new').length, 0,
+    'add new is disabled by default');
+
   // if there are no results matching, i see a message
   this.$('.Searchable-select__input').val('zzz').keyup();
   assert.equal(
     this.$('.Searchable-select__info').text().trim(),
     'No matching results');
+
 });
 
 test(

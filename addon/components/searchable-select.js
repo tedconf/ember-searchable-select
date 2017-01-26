@@ -49,11 +49,14 @@ export default Ember.Component.extend({
     '_searchText',
     '_hasNoResults',
     '_isNotLoading'),
+  _canAddNew: Ember.computed.bool('on-add'),
+  _hasOnSearchAction: Ember.computed.bool('on-search'),
+  _isFilterActive: Ember.computed.not('_hasOnSearchAction'),
 
-  'on-change': Ember.K,
-  'on-add': Ember.K,
-  'on-search': Ember.K,
-  'on-close': Ember.K,
+  'on-change': null,
+  'on-add': null,
+  'on-search': null,
+  'on-close': null,
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -86,14 +89,6 @@ export default Ember.Component.extend({
   }),
 
   _sortedContent: Ember.computed.sort('content', '_sortArray'),
-
-  _canAddNew: Ember.computed('on-add', function() {
-    return this.get('on-add') !== Ember.K;
-  }),
-
-  _isFilterActive: Ember.computed('on-search', function() {
-    return this.get('on-search') === Ember.K;
-  }),
 
   _filterRegex: Ember.computed(
     'limitSearchToWordBoundary',
@@ -227,10 +222,19 @@ export default Ember.Component.extend({
     this.set('_selected', Ember.A(this.get('_selected').concat([item])));
   },
 
+  // verify passed in functions are functions, if not use a no-op in their place
+  checkForFunction(attr) {
+    if (typeof attr === 'function') {
+      return attr;
+    } else {
+      return function() {};
+    }
+  },
+
   actions: {
     updateSearch(text) {
       this.set('_searchText', text);
-      this['on-search'].call(this, text);
+      this.checkForFunction(this.get('on-search')).call(this, text);
     },
     selectItem(item) {
       let disabledKey = this.get('optionDisabledKey');
@@ -248,7 +252,7 @@ export default Ember.Component.extend({
         this.set('_selected', item);
       }
 
-      this['on-change'].call(this, this.get('_selected'));
+      this.checkForFunction(this.get('on-change')).call(this, this.get('_selected'));
 
       if (this.get('closeOnSelection')) {
         this.send('hideMenu');
@@ -278,7 +282,7 @@ export default Ember.Component.extend({
       this._unbindOutsideClicks();
       this.set('_searchText', '');
       this.$('.Searchable-select__label').focus();
-      this['on-close'].call(this);
+      this.checkForFunction(this.get('on-close')).call(this);
     },
     clear() {
       this.send('selectItem', null);
@@ -288,7 +292,7 @@ export default Ember.Component.extend({
       this['on-change'].call(this, this.get('_selected'));
     },
     addNew() {
-      this['on-add'].call(this, this.get('_searchText'));
+      this.get('on-add')(this.get('_searchText'));
       if (this.get('closeOnSelection')) {
         this.send('hideMenu');
       }
