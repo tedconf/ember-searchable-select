@@ -5,7 +5,7 @@
     --- | --- | ---
     content                   | An array of objects used to populate the list.    | Ember.A()   | null
     selected                  | Pass in an initial selection or update the selection when outside data has changed. Must be an object from the content array for single select or an array of options for multi-select.     | Object    | null
-    on-change                 | Specify your own named action to trigger when the selection changes. eg. <code>(action "update")</code> <br> For single selection (default behaviour), the selected object is sent as an argument. For multiple selections, an array of options is sent. | Ember action  | Ember.K
+    on-change                 | Specify your own named action to trigger when the selection changes. eg. <code>(action "update")</code> <br> For single selection (default behaviour), the selected object is sent as an argument. For multiple selections, an array of options is sent. | Ember action  | null
     optionLabelKey            | The item property to use as the visible label in the menu.   | string  | 'title'
     optionDisabledKey         | Provide a boolean item property to use a flag for disabling menu items. [optional] | string, null  | null
     sortBy                    | The item property to use for a sort key. Accepts a single property or a comma separated list. Also allows the use of the `:desc` qualifier for reversing sort order. Sorting is disabled when set to null. <br>eg. `sortBy:title`, `sortBy="firstName,lastName"`, `sortBy="year:desc"` | string, null  | null
@@ -17,13 +17,12 @@
     noResultsMessage          | Message to display if a filter produces no results    | string    | 'No matching results'
     isClearable               | When true, a clear button is available to clear the input and remove any selection that has been made.     | boolean     | true
     clearLabel                | Text to display beside the clear button when `isClearable` is true. | string    | 'Clear selection'
-    on-add                    | Allow unfound items to be added to the content array by specifying your own named action. eg. `(action "addNew")` The new item name is sent as an argument. You must handle adding the item to the content array and selecting the new item outside the component. | Ember action  | Ember.K
+    on-add                    | Allow unfound items to be added to the content array by specifying your own named action. eg. `(action "addNew")` The new item name is sent as an argument. You must handle adding the item to the content array and selecting the new item outside the component. | Ember action  | null
     addLabel                  | Text to show before the new text to be added when an `on-add` action is provided. | string    | 'Add'
-    on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is 
-    provided.     | Ember action    | Ember.K
+    on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is provided.     | Ember action    | null
     isLoading                 | Pass in your own boolean flag to toggle visibility of a loading animation.     | boolean     | false
     loadingMessage            | Text to displayed beside the loading animation when `isLoading` is true.    | string    | 'Searching...'
-    on-close                  | Specify your own named action to trigger when the menu closes. Useful hook for clearing out content that was previously passed in with AJAX. | Ember action | Ember.K
+    on-close                  | Specify your own named action to trigger when the menu closes. Useful hook for clearing out content that was previously passed in with AJAX. | Ember action | null
 
 
     {{/ember-markdown-section}}
