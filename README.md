@@ -73,7 +73,7 @@ PRs that do not include the following will not be merged:
 * `npm version $TYPE -m "message about this version"` where $TYPE indicates the semver release type, eg. `patch`, `major` or `minor`. see the [npm-version docs](https://docs.npmjs.com/cli/version) and (semver docs)[http://semver.org/] if you're not sure which applies
 * `npm publish`
 * `git push --tags`
-* document the changes by [creating a new release](https://github.com/tedconf/ember-ted-select/releases)
+* document the changes by [creating a new release](https://github.com/tedconf/ember-searchable-select/releases)
 
 
 For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
