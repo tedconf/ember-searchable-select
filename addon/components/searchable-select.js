@@ -57,6 +57,7 @@ export default Ember.Component.extend({
   'on-add': null,
   'on-search': null,
   'on-close': null,
+  'on-open': null,
 
   // Make the passed in `selected` a one-way binding.
   // `Ember.computed.oneWay` won't pick up on upstream
@@ -267,6 +268,8 @@ export default Ember.Component.extend({
     },
     showMenu() {
       this.set('_isShowingMenu', true);
+
+      this.checkForFunction(this.get('on-open')).call(this);
 
       Ember.run.scheduleOnce('afterRender', this, function() {
         // focus search input

@@ -233,12 +233,15 @@ test(
 );
 
 test('selection gets passed out with the on-change action', function(assert) {
-  assert.expect(2);
+  assert.expect(3);
   this.set('content', TEDevents);
 
   let itemToSelect = TEDevents.findBy('title', 'TEDGlobal 2014');
 
   this.actions = {
+    assertOpened() {
+      assert.ok('action dispacted for menu open event');
+    },
     assertChanged(selection) {
       assert.deepEqual(selection, itemToSelect);
     },
@@ -250,6 +253,7 @@ test('selection gets passed out with the on-change action', function(assert) {
   this.render(hbs`{{searchable-select
     content=content
     on-change=(action "assertChanged")
+    on-open=(action 'assertOpened')
     on-close=(action "assertClosed")}}`);
 
   this.$('.Searchable-select__label').click();

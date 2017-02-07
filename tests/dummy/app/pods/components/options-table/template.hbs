@@ -22,6 +22,7 @@
     on-search                 | Specify your own named action to trigger when the search text  changes. eg. <code>(action "search")</code>The search text is sent as an argument. Useful for custom filtering or AJAX search. The component's internal filter is automatically disabled when an on-search action is provided.     | Ember action    | null
     isLoading                 | Pass in your own boolean flag to toggle visibility of a loading animation.     | boolean     | false
     loadingMessage            | Text to displayed beside the loading animation when `isLoading` is true.    | string    | 'Searching...'
+    on-open                  | Specify your own named action to trigger when the menu opens. Useful if you opt not to auto close the menu when a selection is made and you'd like to hold off on propagating changes until the menu closes. | Ember action | null
     on-close                  | Specify your own named action to trigger when the menu closes. Useful hook for clearing out content that was previously passed in with AJAX. | Ember action | null
 
 
