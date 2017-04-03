@@ -194,6 +194,7 @@ export default Ember.Component.extend({
       this.send('hideMenu');
     } else if (e.keyCode === 13) {
       // enter key
+      e.preventDefault();
       let action = $(e.target).attr('data-enter-key-action');
 
       if (action) {
