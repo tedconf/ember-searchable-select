@@ -33,26 +33,30 @@
 
 {{#if _isShowingMenu}}
   <div class="Searchable-select__menu">
-    <div class="Searchable-select__search" {{action "noop" bubbles=false}}>
-      {{input
-        class="Searchable-select__input"
-        type="text"
-        placeholder=searchPrompt
-        key-up="updateSearch"
-        tabindex=-1
-        bubbles=false}}
-    </div>
+    {{#unless _hideSearch}}
+      <div class="Searchable-select__search" {{action "noop" bubbles=false}}>
+          {{input
+          class="Searchable-select__input"
+          type="text"
+          placeholder=searchPrompt
+          key-up="updateSearch"
+          tabindex=-1
+          bubbles=false}}
+      </div>
+    {{/unless}}
 
     {{#if _isShowingClear}}
-      <div class="Searchable-select__clear"
-        tabindex=-1
-        data-enter-key-action="clear"
-        {{action "clear" bubbles=false}}>
-        <span class="Searchable-select__icon Searchable-select__icon--clear">
-          &times;
-        </span>
-        {{clearLabel}}
-      </div>
+      {{#unless _hideClear}}
+          <div class="Searchable-select__clear"
+               tabindex=-1
+               data-enter-key-action="clear"
+              {{action "clear" bubbles=false}}>
+      <span class="Searchable-select__icon Searchable-select__icon--clear">
+        &times;
+      </span>
+              {{clearLabel}}
+          </div>
+      {{/unless}}
     {{/if}}
 
     {{#if _isShowingAddNew}}
