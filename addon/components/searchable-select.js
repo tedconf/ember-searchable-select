@@ -89,7 +89,7 @@ export default Ember.Component.extend({
     return [];
   }),
 
-  _sortedContent: Ember.computed.sort('content', '_sortArray'),
+  _sortedContent: Ember.computed.sort('content', '_sortArray').property('content'),
 
   _filterRegex: Ember.computed(
     'limitSearchToWordBoundary',
