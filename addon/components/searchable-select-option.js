@@ -24,7 +24,7 @@ export default Ember.Component.extend({
   }),
   isSelected: Ember.computed('option', 'selected', 'selected.[]', function() {
     if (Array.isArray(this.get('selected'))) {
-      return Ember.A(this.get('selected')).contains(this.get('option'));
+      return Ember.A(this.get('selected')).includes(this.get('option'));
     } else {
       return this.get('selected') === this.get('option');
     }
