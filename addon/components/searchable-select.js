@@ -206,7 +206,7 @@ export default Ember.Component.extend({
   _toggleSelection(item) {
     if (item === null) {
       this.set('_selected', Ember.A([]));
-    } else if (Ember.A(this.get('_selected')).contains(item)) {
+    } else if (Ember.A(this.get('_selected')).includes(item)) {
       this.removeFromSelected(item);
     } else {
       this.addToSelected(item);
